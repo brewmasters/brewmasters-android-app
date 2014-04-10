@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="units_of_measure">
+        <item>Oz</item>
+        <item>Lb</item>
+        <item>Tbsp</item>
+        <item>Tsp</item>
+        <item>Qts</item>
+        <item>Cups</item>
+    </string-array>
+</resources>

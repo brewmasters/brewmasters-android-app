@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    	xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:layout_width="fill_parent"
+	    android:layout_height="wrap_content">
+	    
+	    <TextView
+	        android:id="@+id/recipe_procedure_tv"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@id/recipe_ingredient_list_linear_layout"
+	        android:layout_centerHorizontal="true"
+	        android:textStyle="bold"
+	        android:text="Procedure Specifications"/>
+	    
+	    <LinearLayout
+	        android:id="@+id/grain_to_water_layout"
+	        android:layout_width="wrap_content"
+	        android:layout_below="@id/recipe_procedure_tv"
+	        android:layout_margin="5dp"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal">
+	        
+		    <TextView
+		        android:id="@+id/grain_to_water_tv"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="5dp"
+		        android:text="Water/Grain Ratio:" />
+		    
+		    <EditText
+		        android:id="@+id/grain_to_water_et"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:digits="0123456789"
+		        android:text="1.5"
+		        android:layout_margin="5dp"
+		        android:ems="3" />
+		    <!-- 1-1.5 -->
+		    <TextView
+		        android:id="@+id/grain_to_water_unit_tv"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="5dp"
+		        android:text="Qts/Lb" />
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:id="@+id/mash_temp_layout"
+	        android:layout_width="wrap_content"
+	        android:layout_below="@id/grain_to_water_layout"
+	        android:layout_margin="5dp"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal">
+	        
+		    <TextView
+		        android:id="@+id/mash_temp_tv"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="5dp"
+		        android:text="Mash Temp:" />
+		    <!-- 150-165 -->
+		    
+		    <EditText
+		        android:id="@+id/mash_temp_et"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:digits="0123456789"
+		        android:text="150"
+		        android:layout_margin="5dp"
+		        android:ems="3" />
+		    
+		    <TextView
+		        android:id="@+id/mash_temp_unit_tv"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="5dp"
+		        android:text="Fahreinheit" />
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:id="@+id/mash_duration_layout"
+	        android:layout_width="fill_parent"
+	        android:layout_below="@id/mash_temp_layout"
+	        android:layout_margin="5dp"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal">
+	    
+	    	<TextView
+		        android:id="@+id/mash_duration_tv"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="5dp"
+		        android:text="Mash Duration:"/>
+	    	
+	    	<EditText
+		        android:id="@+id/mash_duration_et"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:digits="0123456789"
+		        android:text="60"
+		        android:layout_margin="5dp"
+		        android:ems="3" />
+	    	<!-- 60- 90 -->
+	    	
+	    	<TextView
+		        android:id="@+id/mash_duration_unit_tv"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="5dp"
+		        android:text="Minutes" />
+	    <!-- 
+		    <SeekBar
+		   	    android:id="@+id/recipe_mash_sb"
+		   	    android:layout_width="fill_parent"
+		   	    android:layout_margin="5dp"
+		   	    android:layout_height="wrap_content"/>
+		 -->
+	    
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:id="@+id/boil_duration_layout"
+	        android:layout_width="fill_parent"
+	        android:layout_below="@id/mash_duration_layout"
+	        android:layout_margin="5dp"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal">
+	  
+		    <TextView
+		        android:id="@+id/boil_time_tv"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="5dp"
+		        android:text="Boil Duration:"/>	   	
+		   	
+	    	<EditText
+		        android:id="@+id/boil_duration_et"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:digits="0123456789"
+		        android:text="60"
+		        android:layout_margin="5dp"
+		        android:ems="3" />
+	    	<!-- 60-90 -->
+	    	
+	    	<TextView
+		        android:id="@+id/mash_temp_unit_tv"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="5dp"
+		        android:text="Minutes" />
+	    	
+			<!--		    
+		    <SeekBar
+		   	    android:id="@+id/recipe_boil_sb"
+		   	    android:layout_width="fill_parent"
+		   	    android:layout_margin="5dp"
+		   	    android:layout_height="wrap_content"/>
+		   	 -->
+		</LinearLayout>
+	    
+	    <Button
+	        android:id="@+id/recipe_create_button"
+	        android:layout_below="@id/boil_duration_layout"
+	        android:layout_width="fill_parent"
+	        android:layout_centerHorizontal="true"
+	        android:layout_height="wrap_content"
+	        android:onClick="onRecipeCreate"
+	        android:text="Create"/>
+
+	</RelativeLayout>

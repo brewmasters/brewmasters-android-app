@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    
+    android:orientation="vertical">
+
+
+    
+   	<!-- Login progress -->
+    <RelativeLayout
+        android:id="@+id/login_status"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ProgressBar
+            android:id="@+id/login_progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:id="@+id/login_status_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/login_progress_bar"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/login_progress_signing_in"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
+    
+    <!-- Login form -->
+    <FrameLayout
+        android:id="@+id/login_form"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/brew_bg"
+        android:orientation="vertical" >
+        
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="top"
+            android:paddingTop="20dp" >
+            
+	        <EditText
+	            android:id="@+id/log_email"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_margin="10dp"
+	            android:paddingLeft="5dp"
+	            android:hint="@string/email"
+	            android:textColorHint="#000000"
+	            android:background="#44444400"
+	            android:singleLine="true">  
+	        </EditText>
+	
+	        <EditText
+	            android:id="@+id/log_password"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:gravity="center_vertical"
+	            android:layout_margin="10dp"
+	            android:paddingLeft="5dp"
+	            android:hint="@string/password"
+	            android:textColorHint="#000000"
+	            android:inputType="textPassword"
+	            android:layout_marginBottom="10dp"
+	            android:background="#44444400"
+	            android:singleLine="true" />
+	  	</LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:gravity="bottom"
+            android:paddingBottom="20dp" >
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:onClick="onLoginClick"
+                android:text="@string/login" />
+
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.58"
+                android:onClick="onRegisterClick"
+                android:text="@string/register" />
+        </LinearLayout>
+         <!-- <ImageView 
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="top"
+	    	android:background="@drawable/brew_bg"/>
+	     -->
+    </FrameLayout>
+
+</LinearLayout>
+

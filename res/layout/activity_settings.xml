@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+        <!--android:background="@color/listcell1" -->
+        
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginRight="20.0dip"
+                android:layout_marginTop="40.0dip" >
+
+                <TextView
+                    android:id="@+id/tvRepositoryURL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Repository URL: "
+                    android:textColor="#ff333333" />
+
+                <EditText
+                    android:id="@+id/etRepositoryURL"
+                    android:inputType="textUri"
+                    android:layout_width="fill_parent"
+                    android:layout_height="35.0dip"
+                    android:layout_marginLeft="5.0dip"
+                    android:layout_toRightOf="@+id/tvRepositoryURL"
+                    android:paddingLeft="10.0dip"
+                    android:singleLine="true"
+                    android:textSize="16.0sp" >
+
+                    <requestFocus />
+                </EditText>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginRight="20.0dip"
+                android:layout_marginTop="5.0dip" >
+
+                <TextView
+                    android:id="@+id/tvMabisURL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="Mabis URL: "
+                    android:textColor="#ff333333" />
+
+                <EditText
+                    android:id="@+id/etMabisURL"
+                    android:layout_width="fill_parent"
+                    android:inputType="textUri"
+                    android:layout_height="35.0dip"
+                    android:layout_marginLeft="5.0dip"
+                    android:layout_toRightOf="@+id/tvMabisURL"
+                    android:paddingLeft="10.0dip"
+                    android:singleLine="true"
+                    android:textSize="16.0sp" />
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginRight="20.0dip"
+                android:layout_marginTop="5.0dip" >
+
+	            <CheckBox
+	                android:id="@+id/cbLocalDevice"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_alignParentLeft="true"
+	                android:layout_alignParentTop="true"
+	                android:text="Use Local Device"
+	                android:textColor="#ff333333" />
+
+            </RelativeLayout>
+
+           
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="30"
+            android:orientation="vertical"
+            android:visibility="visible" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"> 
+
+                <Button
+                    android:id="@+id/btnImgMgrSettingSave"
+                    android:layout_width="fill_parent"
+                    android:layout_height="55.0dip"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:onClick="onSaveClick"
+                    android:text="SAVE"
+                    android:textColor="#ffffffff"
+                    android:textSize="22.0dip" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
