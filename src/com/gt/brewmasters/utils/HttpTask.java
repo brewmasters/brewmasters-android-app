@@ -6,10 +6,6 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,7 +40,6 @@ public class HttpTask extends AsyncTask<Void, Void, String> {
 	private String serverResponsePhrase;
 	private int serverStatusCode = -1;
 	
-	private MultipartEntity multEntity;
 	private StringEntity strEntity;
 	
 	public static final int GET    = 1;
@@ -53,27 +48,6 @@ public class HttpTask extends AsyncTask<Void, Void, String> {
 	
 	public static final int BAD_RESPONSE = -1;
 	public static final int RESPONSE     =  1;
-	
-	//For use with nvp
-	public HttpTask (String url, List<NameValuePair> nvp, Handler handler, int type) {
-		this.url=url;
-		this.nvp=nvp;
-		this.handler=handler;
-		this.type=type;
-
-		multEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
-
-        for(int index=0; index < nvp.size(); index++) {
-            // Normal string data
-            try {
-				multEntity.addPart(nvp.get(index).getName(), new StringBody(nvp.get(index).getValue()));
-			} 
-            catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-        }
-		
-	}
 	
 	//For use with jsons
 	public HttpTask (String url, JSONObject json, Handler handler, int type) {
@@ -104,15 +78,6 @@ public class HttpTask extends AsyncTask<Void, Void, String> {
 	protected String doInBackground(Void... params) {
 
 		if(this.type==HttpTask.POST) {
-			if (multEntity!=null) {
-					HttpPoster poster = new HttpPoster(url, multEntity);
-					if(D) Log.e(TAG, "*******POSTING MultipartEntity*******");
-					httpResult = poster.post();	
-					response = httpResult[0];
-					serverResponsePhrase = httpResult[1];
-					serverStatusCode = Integer.valueOf(httpResult[2]);
-			}
-			
 			if (strEntity!=null) {
 					HttpPoster poster = new HttpPoster(url, strEntity);
 					if(D) Log.e(TAG, poster.toString());

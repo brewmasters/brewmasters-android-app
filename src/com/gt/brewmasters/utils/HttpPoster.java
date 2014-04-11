@@ -10,7 +10,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.protocol.ClientContext;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
@@ -31,7 +30,6 @@ public class HttpPoster {
 	String url;
 	
 	List<NameValuePair> nvp;
-	MultipartEntity multEntity;
 	StringEntity strEntity;
 	
 	HttpPost httppost;
@@ -39,7 +37,6 @@ public class HttpPoster {
 	BasicHttpContext httpContext;
 	
 	boolean usingNvp       = false;
-	boolean usingMultiPart = false;
 	boolean usingStrEnt    = false;
 	
 	//Entity with nvp's (not used in this project)
@@ -49,18 +46,6 @@ public class HttpPoster {
 		this.nvp=nvp;
 		
 		usingNvp = true;
-		
-		httppost = new HttpPost(url);
-		httpclient = new DefaultHttpClient();
-		httpContext = new BasicHttpContext();
-	}
-	
-	//Entity with multiple parts (not used in this project)
-	public HttpPoster(String url, MultipartEntity entity) {
-		
-		this.url=url;
-		this.multEntity=entity;
-		usingMultiPart = true;
 		
 		httppost = new HttpPost(url);
 		httpclient = new DefaultHttpClient();
@@ -88,7 +73,6 @@ public class HttpPoster {
 			httpContext.setAttribute(ClientContext.COOKIE_STORE, new BasicCookieStore());
 			
 			if (usingNvp) httppost.setEntity(new UrlEncodedFormEntity(nvp, HTTP.UTF_8 ));
-			if (usingMultiPart) httppost.setEntity(multEntity);
 			if (usingStrEnt) httppost.setEntity(strEntity);
 			
 			HttpResponse response = httpclient.execute(httppost, httpContext);

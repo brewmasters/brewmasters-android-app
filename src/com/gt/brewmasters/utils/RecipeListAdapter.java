@@ -62,6 +62,7 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe> implements android.c
 
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
+		Recipe recipe = recipeList.get(which);
 		
 	}
 	
