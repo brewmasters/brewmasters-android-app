@@ -70,19 +70,20 @@ public class BrowseRecipesActivity extends Activity{
 		recipeLv = (ListView)findViewById(R.id.data_result_list);
 		RecipeListAdapter recipeAdapter = new RecipeListAdapter(this, R.layout.recipe_row, recipes);
 		recipeLv.setAdapter(recipeAdapter);
-		recipeLv.setCacheColorHint(0);
+		recipeLv.setOnItemClickListener(recipeAdapter);
+		//recipeLv.setCacheColorHint(0);
 
-		recipeLv.setOnItemLongClickListener(new OnItemLongClickListener() {
-
-            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-                    int pos, long id) {
-                // todo implement deletion of db records if this functionailty is desired
-
-            	if (D) Log.i(TAG, "pos: " + pos);
-
-                return true;
-            }
-        }); 
+//		recipeLv.setOnItemLongClickListener(new OnItemLongClickListener() {
+//
+//            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+//                    int pos, long id) {
+//                // todo implement deletion of db records if this functionailty is desired
+//
+//            	if (D) Log.i(TAG, "pos: " + pos);
+//
+//                return true;
+//            }
+//        }); 
 	}
     
     public void initUi(){

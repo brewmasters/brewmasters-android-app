@@ -4,19 +4,22 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.gt.brewmasters.R;
+import com.gt.brewmasters.activities.CreateRecipeActivity;
 import com.gt.brewmasters.structures.Recipe;
 
-public class RecipeListAdapter extends ArrayAdapter<Recipe> implements android.content.DialogInterface.OnClickListener{
-
+public class RecipeListAdapter extends ArrayAdapter<Recipe> implements OnItemClickListener {
 	private ArrayList<Recipe>recipeList;
 	private Activity activity;
 	private int layoutResourceId;
@@ -52,18 +55,34 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe> implements android.c
         beerTypeTv.setText(recipe.getBeerType());
         
         row.setTag(position);
-        
         return row;
     }
 	
     public ArrayList<Recipe> getRecipeList(){
     	return this.recipeList;
     }
+    
 
 	@Override
-	public void onClick(DialogInterface dialog, int which) {
-		Recipe recipe = recipeList.get(which);
-		
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		if(D) Log.v(TAG, "here: " + position);
+       	Intent editIntent = new Intent(activity, CreateRecipeActivity.class);
+    	
+       	editIntent.putExtra("action", "edit");
+    	editIntent.putExtra("recipePos", position);
+    	activity.startActivity(editIntent);		
 	}
+
+
+/*
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		if(D) Log.v(TAG, "here: " + which);
+       	Intent editIntent = new Intent(activity, CreateRecipeActivity.class);
+    	
+       	editIntent.putExtra("action", "edit");
+    	editIntent.putExtra("recipePos", which);
+    	activity.startActivity(editIntent);			
+	}*/
 	
 }

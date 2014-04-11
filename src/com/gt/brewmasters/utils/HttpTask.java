@@ -1,22 +1,18 @@
 package com.gt.brewmasters.utils;
 
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.protocol.HTTP;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Represents an asynchronous http task

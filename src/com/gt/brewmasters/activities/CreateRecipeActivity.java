@@ -73,16 +73,71 @@ public class CreateRecipeActivity extends Activity {
 	
 	//Ingredient list
 	ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
+	private boolean editing;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        editing = false;
         
         //get context for global application vars
         appContext = Brewmasters.getAppContext();
         
-        initUi();
+        Bundle bundle = getIntent().getExtras();
+        int pos = parseBundle(bundle);
         
+        initUi();
+        if(editing) {
+        	Recipe recipe = getRecipe(pos);
+        	loadRecipe(recipe);
+        }
+        
+    }
+    
+    public int parseBundle(Bundle bundle) {
+    	int retVal = -1;
+    	if (bundle != null) {
+			String action = bundle.getString("action");
+			if(action.equals("edit"))
+			{
+				editing=true;
+				retVal = bundle.getInt("recipePos");
+			}
+		}
+    	if(D) Log.v(TAG,"pos: " + String.valueOf(retVal));
+    	return retVal;
+    }
+    
+    public Recipe getRecipe(int pos) {
+    	Recipe recipe;
+    	RecipeDataSource db = new RecipeDataSource(this);
+    	db.open();
+    	ArrayList<Recipe> recipes = db.getAllRecipes();
+    	db.close();
+    	recipe = recipes.get(pos);
+    	return recipe;
+    }
+    
+    public void loadRecipe(Recipe recipe) {
+    	
+    	recipeNameEt.setText(recipe.getName());
+    	recipeBeerTypeEt.setText(recipe.getBeerType());
+    	recipeDescriptionEt.setText(recipe.getDescription());
+    	recipeRatioEt.setText(String.valueOf(recipe.getWaterGrainRatio()));
+    	recipeMashTempEt.setText(String.valueOf(recipe.getMashTemp()));
+    	recipeMashDurEt.setText(String.valueOf(recipe.getMashDuration()));
+    	recipeBoilDurEt.setText(String.valueOf(recipe.getBoilDuration()));
+
+    	IngredientDataSource db = new IngredientDataSource(this);
+    	db.open();
+    	ArrayList<Ingredient> ingredients = db.getIngredients(recipe.id);
+    	db.close();
+    	
+    	for(int i=0; i<ingredients.size(); i++) {
+    		Ingredient ingredient = ingredients.get(i);
+    		if(D) Log.v(TAG, ingredient.getName());
+    		ingredientList.add(ingredient);
+    	}
     }
     
     public void initUi(){
@@ -121,9 +176,6 @@ public class CreateRecipeActivity extends Activity {
 		// Apply the adapter to the spinner
 		ingredients.setAdapter(adapter);
 		
-//		for( int i = 0; i <ingredientList.size(); i++) {
-//			Log.v(TAG, i+" " +ingredientList.get(i).getName());
-//		}
     }
     
     public void onRemoveClick(View v) {
@@ -132,25 +184,6 @@ public class CreateRecipeActivity extends Activity {
 	    adapter.remove(ingredientRemove);
 	    updateIngredientList();
     }
-    
-    //Ensures that all information to create a recipe has been entered before allowing the user to proceed
-//    private Boolean checkValidInput() {
-//    	Boolean retVal = false;
-//
-//    	//required fields
-//    	name   = ingredientName.getText().toString();
-//    	amount = Integer.valueOf(unitAmount.getText().toString());
-//    	
-//    	unit = (Integer) unitSpinner.getSelectedItem();
-//    	ingredientType = (Integer) typeSpinner.getSelectedItem();
-//    	
-//    	//Check that a value was entered for the name and amount fields
-//    	if(!name.contentEquals("") && amount>0) {
-//    		retVal = true;
-//    	}
-//    	
-//    	return retVal;
-//    }
     
     @Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -179,13 +212,12 @@ public class CreateRecipeActivity extends Activity {
             	//Log.v(TAG, ingredient.toString());
             	//Log.v(TAG, "just created");
             	ingredientList.add(ingredient);
-            	updateIngredientList();
         		
         	}
 			break;
 			
 		}		
-	}    
+	}   
     
     public void onIngredientAdd(View v) {
     	if(D) Log.v(TAG, "ingredient add");
@@ -206,41 +238,47 @@ public class CreateRecipeActivity extends Activity {
     	recipeBoilDur 	  = recipeBoilDurEt.getText().toString();
     	
     	if(isValidRecipe()) {
-    		RecipeDataSource recipeDatasource = new RecipeDataSource(this);
-        	recipeDatasource.open();
-        	
-        	//create the recipe and add to database
-        	Recipe recipe = recipeDatasource.createRecipe(recipeName, recipeBeerType, recipeDescription,
-        								  recipeRatio, recipeMashTemp, recipeMashDur, recipeBoilDur);
-        	
-        	recipeDatasource.close();
-        	
-        	//get the id for the recipe to use as the foreign key in ingredient
-        	long recipeId = recipe.getId();
-        	
-        	IngredientDataSource ingredientDatasource = new IngredientDataSource(this);
-        	ingredientDatasource.open();
-        	
-        	//For each ingredient in the ingredient list, create it with the given recipeId
-        	for(int i=0; i<this.ingredientList.size(); i++) {
-        		
-        		//Take partially filled out Ingredient object from list
-        		Ingredient ingredient = ingredientList.get(i);
-        		
-        		//ingredient field info
-        		ingredientName 		  = ingredient.getName();
-        		ingredientType 		  = ingredient.getType();
-        		ingredientDescription = ingredient.getDescription();
-        		ingredientAmount 	  = String.valueOf(ingredient.getAmount());
-        		ingredientUnit 		  = ingredient.getUnit();
-        		ingredientAddTime 	  = String.valueOf(ingredient.getAddTime());
-        		
-        		
-        		//Add to database and recreate to finalize
-        		ingredientDatasource.createIngredient(recipeId, ingredientName, ingredientType, ingredientDescription, 
-        											  ingredientAmount, ingredientUnit, ingredientAddTime);
+    		if(editing) {
+    			
+    		}
+    		
+    		else {
+    			RecipeDataSource recipeDatasource = new RecipeDataSource(this);
+            	recipeDatasource.open();
+            	
+            	//create the recipe and add to database
+            	Recipe recipe = recipeDatasource.createRecipe(recipeName, recipeBeerType, recipeDescription,
+            								  recipeRatio, recipeMashTemp, recipeMashDur, recipeBoilDur);
+            	
+            	recipeDatasource.close();
+            	
+            	//get the id for the recipe to use as the foreign key in ingredient
+            	long recipeId = recipe.getId();
+            	
+            	IngredientDataSource ingredientDatasource = new IngredientDataSource(this);
+            	ingredientDatasource.open();
+            	
+            	//For each ingredient in the ingredient list, create it with the given recipeId
+            	for(int i=0; i<this.ingredientList.size(); i++) {
+            		
+            		//Take partially filled out Ingredient object from list
+            		Ingredient ingredient = ingredientList.get(i);
+            		
+            		//ingredient field info
+            		ingredientName 		  = ingredient.getName();
+            		ingredientType 		  = ingredient.getType();
+            		ingredientDescription = ingredient.getDescription();
+            		ingredientAmount 	  = String.valueOf(ingredient.getAmount());
+            		ingredientUnit 		  = ingredient.getUnit();
+            		ingredientAddTime 	  = String.valueOf(ingredient.getAddTime());
+            		
+            		
+            		//Add to database and recreate to finalize
+            		ingredientDatasource.createIngredient(recipeId, ingredientName, ingredientType, ingredientDescription, 
+            											  ingredientAmount, ingredientUnit, ingredientAddTime);	
+            	}
+            	ingredientDatasource.close();
         	}
-        	ingredientDatasource.close();
     	}
     	else {
     		appContext.makeToast("Please fill out all fields and add atleast one ingredient");
@@ -259,5 +297,4 @@ public class CreateRecipeActivity extends Activity {
     	
     	return retVal;
     }
-    
 }

@@ -78,6 +78,22 @@ public class IngredientDataSource {
 		return ingredients;
 	}
 	
+	//Gets all ingredients with given recipe ID
+	public ArrayList<Ingredient> getIngredients(long id) {
+		ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+		String sql = "SELECT * FROM " + BrewmasterDB.TABLE_INGREDIENT + " WHERE recipe_id = '"+String.valueOf(id)+"'";
+		Cursor cursor = database.rawQuery(sql, null);
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			Ingredient ingredient = cursorToIngredient(cursor);
+			ingredients.add(ingredient);
+			cursor.moveToNext();
+		}
+		// Make sure to close the cursor
+		cursor.close();
+		return ingredients;
+	}
+	
 	private Ingredient cursorToIngredient(Cursor cursor) {
 		Ingredient ingredient = new Ingredient();
 		ingredient.setId(cursor.getLong(0));
