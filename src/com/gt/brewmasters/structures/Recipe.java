@@ -22,15 +22,19 @@ public class Recipe {
 //		}
 //	}
 	
-//	public Recipe(String name, String type, String description, float waterGrainRatio, int mashTemp, int boilDuration, int mashDuration) {
-//		this.name=name;
-//		this.type=type;
-//		this.description=description;
-//		this.waterGrainRatio=waterGrainRatio;
-//		this.setMashTemp(mashTemp);
-//		this.setBoilDuration(boilDuration);
-//		this.setMashDuration(mashDuration);
-//	}
+	public Recipe() {
+		
+	}
+	
+	public Recipe(String name, String type, String description, float waterGrainRatio, int mashTemp, int boilDuration, int mashDuration) {
+		this.name=name;
+		this.beerType=type;
+		this.description=description;
+		this.waterGrainRatio=waterGrainRatio;
+		this.setMashTemp(mashTemp);
+		this.setBoilDuration(boilDuration);
+		this.setMashDuration(mashDuration);
+	}
 	
 	public void setId(Long id) {
 		this.id=id;

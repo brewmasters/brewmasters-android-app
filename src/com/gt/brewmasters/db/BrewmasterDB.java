@@ -117,7 +117,7 @@ public class BrewmasterDB extends SQLiteOpenHelper
   {
 	  String recipeCreate = "CREATE TABLE " + TABLE_RECIPE + "(" +
 	  			RECIPE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-				RECIPE_NAME + " TEXT," +
+				RECIPE_NAME + "UNIQUE TEXT," +
 				RECIPE_DESCRIPTION + " TEXT," +
 				RECIPE_BEER_TYPE + " TEXT," +
 				RECIPE_WATER_GRAIN_RATIO + " TEXT," +

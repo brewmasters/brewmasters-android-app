@@ -74,6 +74,7 @@ public class CreateRecipeActivity extends Activity {
 	//Ingredient list
 	ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
 	private boolean editing;
+	private long recipeId;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,7 @@ public class CreateRecipeActivity extends Activity {
         if(editing) {
         	Recipe recipe = getRecipe(pos);
         	loadRecipe(recipe);
+        	recipeId=recipe.getId();
         }
         
     }
@@ -150,6 +152,11 @@ public class CreateRecipeActivity extends Activity {
     	ingredientListView.addHeaderView(header);
     	ingredientListView.addFooterView(footer);
     	
+    	if(editing) {
+        	Button addRecipe   = (Button) findViewById(R.id.recipe_create_button);
+        	addRecipe.setText("Edit");    		
+    	}
+    	
     	addIngredient = (Button) this.findViewById(R.id.recipe_add_ingredient_button);
 
     	//recipe Fields
@@ -161,11 +168,11 @@ public class CreateRecipeActivity extends Activity {
     	recipeMashDurEt 	= (EditText) findViewById(R.id.mash_duration_et);
     	recipeBoilDurEt 	= (EditText) findViewById(R.id.boil_duration_et);
     	
-    	updateIngredientList();
+    	createIngredientList();
     	
     }
     
-    public void updateIngredientList() {
+    public void createIngredientList() {
     	//setup the listView
     	ListView ingredients = (ListView) this.findViewById(R.id.recipe_ingredient_list);
     	
@@ -181,8 +188,12 @@ public class CreateRecipeActivity extends Activity {
     public void onRemoveClick(View v) {
 	    int pos = (Integer)v.getTag();
 	    Ingredient ingredientRemove = adapter.getItem(pos);
+	    IngredientDataSource db = new IngredientDataSource(this);
+	    db.open();
+	    db.deleteIngredient(ingredientRemove);
+	    db.close();
 	    adapter.remove(ingredientRemove);
-	    updateIngredientList();
+	    //updateIngredientList();
     }
     
     @Override
@@ -211,7 +222,14 @@ public class CreateRecipeActivity extends Activity {
             	Ingredient ingredient = new Ingredient(name, ingredientType, amount, unit, description, addTime);
             	//Log.v(TAG, ingredient.toString());
             	//Log.v(TAG, "just created");
-            	ingredientList.add(ingredient);
+            	if(editing){
+            		IngredientDataSource db = new IngredientDataSource(this);
+                	db.open();
+                	db.createIngredient(recipeId, name, ingredientType, description, String.valueOf(amount), unit, String.valueOf(addTime));
+                	db.close();
+            	}
+            	
+            	adapter.add(ingredient);
         		
         	}
 			break;
@@ -238,12 +256,22 @@ public class CreateRecipeActivity extends Activity {
     	recipeBoilDur 	  = recipeBoilDurEt.getText().toString();
     	
     	if(isValidRecipe()) {
+    		RecipeDataSource recipeDatasource = new RecipeDataSource(this);
     		if(editing) {
+    			Log.v(TAG, "RECIPE NAME: " + recipeName +"SD");
+    			Recipe recipe = new Recipe(recipeName, recipeBeerType, recipeDescription,
+						  Float.valueOf(recipeRatio), Integer.valueOf(recipeMashTemp), Integer.valueOf(recipeMashDur), Integer.valueOf(recipeBoilDur));
+    			recipe.setId(recipeId);
+    			Log.v(TAG, "RECIPE id: " + recipeId +"SD");
+    			recipeDatasource.open();
+    			recipeDatasource.updateRecipe(recipe);
+    			recipeDatasource.close();
     			
+            	this.setResult(Activity.RESULT_OK);
+            	finish();	
     		}
     		
     		else {
-    			RecipeDataSource recipeDatasource = new RecipeDataSource(this);
             	recipeDatasource.open();
             	
             	//create the recipe and add to database
@@ -278,6 +306,8 @@ public class CreateRecipeActivity extends Activity {
             											  ingredientAmount, ingredientUnit, ingredientAddTime);	
             	}
             	ingredientDatasource.close();
+            	appContext.makeToast("Recipe successfully created.");
+            	finish();
         	}
     	}
     	else {

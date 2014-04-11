@@ -38,6 +38,8 @@ public class BrowseRecipesActivity extends Activity{
     //for example....
     //if(D) Log.d(TAG, "not connected");
     
+    public static final int EDIT_RECIPE = 1;
+    
 	Context mContext;
 	SharedPreferences mPref;
 	ArrayList<Recipe> recipes = new ArrayList<Recipe>();
@@ -55,12 +57,7 @@ public class BrowseRecipesActivity extends Activity{
         
         initUi();
         
-		//db
-        RecipeDataSource recipeDatasource = new RecipeDataSource(this);
-    	recipeDatasource.open();
-    		
-		recipes = recipeDatasource.getAllRecipes();
-		recipeDatasource.close();	
+		recipes = getRecipesFromDb();
 		
 		for(int i=0; i<recipes.size(); i++) {
 			if(D) Log.v(TAG, "Recipe name: " + recipes.get(i).getName());
@@ -71,44 +68,42 @@ public class BrowseRecipesActivity extends Activity{
 		RecipeListAdapter recipeAdapter = new RecipeListAdapter(this, R.layout.recipe_row, recipes);
 		recipeLv.setAdapter(recipeAdapter);
 		recipeLv.setOnItemClickListener(recipeAdapter);
-		//recipeLv.setCacheColorHint(0);
 
-//		recipeLv.setOnItemLongClickListener(new OnItemLongClickListener() {
-//
-//            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-//                    int pos, long id) {
-//                // todo implement deletion of db records if this functionailty is desired
-//
-//            	if (D) Log.i(TAG, "pos: " + pos);
-//
-//                return true;
-//            }
-//        }); 
 	}
+    
+    public ArrayList<Recipe> getRecipesFromDb() {
+    	//db
+        RecipeDataSource recipeDatasource = new RecipeDataSource(this);
+    	recipeDatasource.open();
+    		
+		ArrayList<Recipe> recipes = recipeDatasource.getAllRecipes();
+		recipeDatasource.close();	
+		return recipes;
+    }
     
     public void initUi(){
     	setContentView(R.layout.activity_browse_recipes);
     }
+    
+    
+    @Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if(resultCode != RESULT_OK)
+			return;
 
-    	
-	//click row
-    public void alertstate(int npos) {
-    	if(npos == 0)
-    	{
-    		if (D) Log.i(TAG, "dataactivity==========npos == 0");
-    		return;
-    	}
-    	
+		switch(requestCode)
+		{
+			case EDIT_RECIPE:
+				//adapter
+				recipes = getRecipesFromDb();
+				
+				recipeLv = (ListView)findViewById(R.id.data_result_list);
+				RecipeListAdapter recipeAdapter = new RecipeListAdapter(this, R.layout.recipe_row, recipes);
+				recipeLv.setAdapter(recipeAdapter);
+				recipeLv.setOnItemClickListener(recipeAdapter);
+				break;
+		}
 	}
-   
-    private void showRecipe(int npos)
-    {
-       	Intent intent = new Intent(this, CreateRecipeActivity.class);
-    	
-//    	intent.putextra("retry", "retry");
-//    	intent.putextra("pos", npos);
-//    	intent.putextra("ro", "1");
-    	startActivity(intent);
-    }
 
 }

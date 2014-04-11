@@ -3,6 +3,7 @@ package com.gt.brewmasters.db;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gt.brewmasters.structures.Ingredient;
 import com.gt.brewmasters.structures.Recipe;
 
 import android.content.ContentValues;
@@ -59,7 +60,38 @@ public class RecipeDataSource {
 		long id = recipe.getId();
 		System.out.println("Recipe deleted with id: " + id);
 		database.delete(BrewmasterDB.TABLE_RECIPE, BrewmasterDB.RECIPE_ID
-				+ " = " + id, null);
+				+ " = '" + id+"'", null);
+	}
+	
+	public void updateRecipe(Recipe recipe) {
+		long id = recipe.getId();
+		Log.v("Brewmaster", "Recipe updated with name: " + recipe.getName() +"sd");
+		ContentValues args = new ContentValues();
+	    args.put("name", recipe.getName());
+	    args.put("beer_type", recipe.getBeerType());
+	    args.put("description", recipe.getDescription());
+	    args.put("water_grain_ratio", String.valueOf(recipe.getWaterGrainRatio()));
+	    args.put("mash_temp", String.valueOf(recipe.getMashTemp()));
+	    args.put("mash_duration", String.valueOf(recipe.getMashDuration()));
+	    args.put("boil_duration", String.valueOf(recipe.getBoilDuration()));
+	    
+//	    String sql = "UPDATE "+ BrewmasterDB.TABLE_RECIPE + 
+//	    		" SET name="+recipe.getName()
+//	    		+", beer_type="+recipe.getBeerType()
+//	    		+", description="+recipe.getDescription()
+//	    		+", water_grain_ratio="+recipe.getWaterGrainRatio()
+//	    		+", mash_temp="+recipe.getMashTemp()
+//	    		+", mash_duration="+recipe.getMashDuration()
+//	    		+", boil_duration="+recipe.getBoilDuration()
+//	    		+" WHERE id='"+id+"'";
+//	    
+//	    Log.v("Brewmaster", sql);
+//	    
+//	    Cursor cursor = database.rawQuery(sql, null);
+
+		database.update(BrewmasterDB.TABLE_RECIPE, args, BrewmasterDB.RECIPE_ID
+				+ " = '" + id+"'" , null);
+		
 	}
 	
 	public ArrayList<Recipe> getAllRecipes() {

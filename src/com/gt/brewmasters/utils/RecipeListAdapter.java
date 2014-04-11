@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.gt.brewmasters.R;
+import com.gt.brewmasters.activities.BrowseRecipesActivity;
 import com.gt.brewmasters.activities.CreateRecipeActivity;
 import com.gt.brewmasters.structures.Recipe;
 
@@ -70,7 +71,7 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe> implements OnItemCli
     	
        	editIntent.putExtra("action", "edit");
     	editIntent.putExtra("recipePos", position);
-    	activity.startActivity(editIntent);		
+    	activity.startActivityForResult(editIntent, BrowseRecipesActivity.EDIT_RECIPE);		
 	}
 
 
