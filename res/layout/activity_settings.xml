@@ -7,6 +7,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:background="@color/listcell1"
         android:orientation="vertical" >
         <!--android:background="@color/listcell1" -->
         
@@ -30,11 +31,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="Repository URL: "
+                    android:text="Device Address: "
                     android:textColor="#ff333333" />
 
                 <EditText
-                    android:id="@+id/etRepositoryURL"
+                    android:id="@+id/etDeviceAddress"
                     android:inputType="textUri"
                     android:layout_width="fill_parent"
                     android:layout_height="35.0dip"
@@ -48,54 +49,6 @@
                 </EditText>
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10.0dip"
-                android:layout_marginRight="20.0dip"
-                android:layout_marginTop="5.0dip" >
-
-                <TextView
-                    android:id="@+id/tvMabisURL"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:text="Mabis URL: "
-                    android:textColor="#ff333333" />
-
-                <EditText
-                    android:id="@+id/etMabisURL"
-                    android:layout_width="fill_parent"
-                    android:inputType="textUri"
-                    android:layout_height="35.0dip"
-                    android:layout_marginLeft="5.0dip"
-                    android:layout_toRightOf="@+id/tvMabisURL"
-                    android:paddingLeft="10.0dip"
-                    android:singleLine="true"
-                    android:textSize="16.0sp" />
-            </RelativeLayout>
-            
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5.0dip"
-                android:layout_marginRight="20.0dip"
-                android:layout_marginTop="5.0dip" >
-
-	            <CheckBox
-	                android:id="@+id/cbLocalDevice"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_alignParentLeft="true"
-	                android:layout_alignParentTop="true"
-	                android:text="Use Local Device"
-	                android:textColor="#ff333333" />
-
-            </RelativeLayout>
-
-           
-
         </LinearLayout>
 
         <LinearLayout
@@ -107,14 +60,16 @@
 
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"> 
+                android:layout_height="fill_parent">
 
                 <Button
                     android:id="@+id/btnImgMgrSettingSave"
                     android:layout_width="fill_parent"
                     android:layout_height="55.0dip"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="48dp"
+                    android:background="@drawable/action_settings_save_btn"
                     android:onClick="onSaveClick"
                     android:text="SAVE"
                     android:textColor="#ffffffff"

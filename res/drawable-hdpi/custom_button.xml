@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item android:state_pressed="true"
+          android:background="@drawable/data_background" >
+          
+        <shape>
+            <gradient
+                android:startColor="@color/Gray"
+                android:endColor="@color/DarkGray"
+                android:angle="270" />
+            <stroke
+                android:width="3dp"
+                android:color="@color/Black" />
+            <corners
+                android:radius="3dp" />
+            <padding
+                android:left="10dp"
+                android:top="10dp"
+                android:right="10dp"
+                android:bottom="10dp" />
+        </shape>
+          
+    </item>
+        
+<!--         
+ -->
+    
+    <item android:state_enabled="false"
+          android:background="@drawable/connect_button_pressed"/> 
+        
+<!-- 
+        <shape>
+            <gradient
+                android:endColor="@color/LightGray"
+                android:startColor="@color/LightGray"
+                android:angle="270" />
+            <stroke
+                android:width="3dp"
+                android:color="@color/Gray" />
+            <corners
+                android:radius="3dp" />
+            <padding
+                android:left="10dp"
+                android:top="10dp"
+                android:right="10dp"
+                android:bottom="10dp" />
+        </shape>
+ -->
+
+    <item android:state_focused="true" 
+        android:background="@drawable/connect_button_pressed"/>
+<!-- 
+        <shape>
+            <gradient
+                android:endColor="@color/Black"
+                android:startColor="@color/Gray"
+                android:angle="270" />
+            <stroke
+                android:width="3dp"
+                android:color="@color/Black" />
+            <corners
+                android:radius="3dp" />
+            <padding
+                android:left="10dp"
+                android:top="10dp"
+                android:right="10dp"
+                android:bottom="10dp" />
+        </shape>
+-->
+    <item       
+        android:background="@drawable/connect_button_pressed"/>  
+<!-- 
+        <shape>
+
+            <gradient
+                android:endColor="@color/DarkGray"
+                android:startColor="@color/DarkGray"
+                android:angle="270" />
+            <stroke
+                android:width="3dp"
+                android:color="@color/LightGray" />
+            <corners
+                android:radius="3dp" />
+            <padding
+                android:left="10dp"
+                android:top="10dp"
+                android:right="10dp"
+                android:bottom="10dp" />
+
+        </shape>
+ -->
+</selector>

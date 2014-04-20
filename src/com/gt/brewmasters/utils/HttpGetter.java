@@ -77,11 +77,14 @@ public class HttpGetter {
 			return retVal;
 	
 		}
+		
 		catch (Exception e) {
 			bytesSent += e.toString();
 			retVal[0] = bytesSent;
-			if(D) Log.e(TAG, "An error occured while posting");		
+			if(D) Log.e(TAG, "An error occured while getting");
+			
 		}
+		
 		return retVal;
 	}
 }

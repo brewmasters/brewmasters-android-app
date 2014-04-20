@@ -76,11 +76,24 @@
             android:label="SettingsManager">
         </activity>
         
-                <activity
+        <activity
             android:name="com.gt.brewmasters.activities.BrowseRecipesActivity"
+            android:theme="@android:style/Theme.Dialog"
+            android:screenOrientation="portrait" 
+            android:label="SettingsManager">
+        </activity>
+        
+        <activity
+            android:name="com.gt.brewmasters.activities.BeerReportActivity"
             android:theme="@android:style/Theme.NoTitleBar"
             android:screenOrientation="portrait" 
             android:label="SettingsManager">
+        </activity>
+        
+        <activity
+            android:name="com.gt.brewmasters.activities.HomePager"
+            android:screenOrientation="portrait" 
+            android:label="Brewmasters">
         </activity>
         
     </application>

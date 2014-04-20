@@ -16,6 +16,8 @@ public class Recipe {
 	private int boilDuration;
 	private int mashDuration;
 	
+	public ArrayList<Ingredient> ingredients;
+	
 //	private Recipe(String name, ArrayList<Ingredient> ingredients) {
 //		for(int i=0; i<ingredients.size(); i++) {
 //			addIngredient(ingredients.get(i));
@@ -34,6 +36,7 @@ public class Recipe {
 		this.setMashTemp(mashTemp);
 		this.setBoilDuration(boilDuration);
 		this.setMashDuration(mashDuration);
+		ingredients = new ArrayList<Ingredient>();
 	}
 	
 	public void setId(Long id) {
@@ -98,6 +101,14 @@ public class Recipe {
 
 	public void setMashTemp(int mashTemp) {
 		this.mashTemp = mashTemp;
+	}
+
+	public ArrayList<Ingredient> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(ArrayList<Ingredient> ingredients) {
+		this.ingredients = ingredients;
 	}
 	
 }

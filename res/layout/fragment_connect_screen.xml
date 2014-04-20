@@ -2,30 +2,59 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:drawable/gallery_thumb">
-
-    <TextView android:id="@+id/text"
-        android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:gravity="center_vertical|center_horizontal"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="hello world"/>
-
+    android:background="@drawable/home_backdrop">
+    
     <!-- The frame layout is here since we will be showing either
     the empty view or the list view.  -->
 	<LinearLayout
 	    android:orientation="vertical"
+	    android:id="@+id/connect_screen"
 	    android:layout_width="match_parent"
 	    android:layout_gravity="center"
 	    android:layout_height="match_parent"
-	    android:layout_margin="20dp">
-	    
-		<Button
-		    android:id="@+id/btn_connect"
-		    android:layout_width="wrap_content"
-	    	android:layout_height="wrap_content"
-	    	android:layout_gravity="center"
-	    	android:text="Connect to device">
-		</Button>
+	    android:visibility="visible">
+        
+	    <Button
+	        android:id="@+id/btn_connect"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="200dp"
+	        android:background="@drawable/action_connect_btn"
+	        android:layout_gravity="center"
+	        android:shadowColor="#A8A8A8"
+	        android:shadowDx="0"
+	        android:shadowDy="0"
+	        android:shadowRadius="5"
+	        android:text="Connect to Device"
+	        android:textColor="#FFFFFF"
+	        android:textSize="30sp" />
+		
+		<!-- Connect progress -->
+	    <RelativeLayout
+	        android:id="@+id/connect_status"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:orientation="vertical"
+	        android:visibility="gone" >
+	
+	        <ProgressBar
+	            android:id="@+id/connect_progress_bar"
+	            style="?android:attr/progressBarStyleLarge"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerHorizontal="true"
+	            android:layout_centerVertical="true" />
+	
+	        <TextView
+	            android:id="@+id/connect_status_message"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/connect_progress_bar"
+	            android:layout_centerHorizontal="true"
+	            android:fontFamily="sans-serif-light"
+	            android:text="Connecting..."
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	    </RelativeLayout>
 	    
 	</LinearLayout>
 

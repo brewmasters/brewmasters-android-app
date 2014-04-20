@@ -21,6 +21,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -86,6 +87,8 @@ public class CreateRecipeActivity extends Activity {
         
         Bundle bundle = getIntent().getExtras();
         int pos = parseBundle(bundle);
+        
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         
         initUi();
         if(editing) {
@@ -286,6 +289,9 @@ public class CreateRecipeActivity extends Activity {
             	IngredientDataSource ingredientDatasource = new IngredientDataSource(this);
             	ingredientDatasource.open();
             	
+            	//clear out the old list before we regenerate it
+            	recipe.ingredients.clear();
+            	
             	//For each ingredient in the ingredient list, create it with the given recipeId
             	for(int i=0; i<this.ingredientList.size(); i++) {
             		
@@ -300,10 +306,12 @@ public class CreateRecipeActivity extends Activity {
             		ingredientUnit 		  = ingredient.getUnit();
             		ingredientAddTime 	  = String.valueOf(ingredient.getAddTime());
             		
+            		//add ingredient to recipe
+            		recipe.ingredients.add(ingredient);
             		
             		//Add to database and recreate to finalize
             		ingredientDatasource.createIngredient(recipeId, ingredientName, ingredientType, ingredientDescription, 
-            											  ingredientAmount, ingredientUnit, ingredientAddTime);	
+            											  ingredientAmount, ingredientUnit, ingredientAddTime);
             	}
             	ingredientDatasource.close();
             	appContext.makeToast("Recipe successfully created.");

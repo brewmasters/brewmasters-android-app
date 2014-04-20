@@ -14,13 +14,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 //Manages application settings, nothing crazy going on here
-//Skeleton settings code taken from MABIS project. Havent reworked it for this project yet.
 public class SettingsActivity extends Activity {
+	// Debugging
+    private static final String TAG = "Brewmaster";
+    private static final boolean D  = true;
+	
 	private Brewmasters appContext;
 	private SharedPreferences mPref;
 	
-	private static String REPOSITORY_URL = "http://10.10.10.97/UtilityMobService/FileUpload.aspx";
-	private static String MABIS_URL 	 = "http://10.10.10.97/UtilityMobService/MobService.asmx/Process";
+	private static String DEVICE_IP = "http://192.168.0.100";
 	
 	@Override
 	public void onCreate(Bundle bundle) {
@@ -33,102 +35,40 @@ public class SettingsActivity extends Activity {
 
 		//AddURL, MabisURL
 		SharedPreferences oSP = null;
-		oSP = getApplicationContext().getSharedPreferences("img_mgr_setting_save", 0);
+		oSP = getApplicationContext().getSharedPreferences("settings_save", 0);
 		
-		String strRepositoryURL = oSP.getString("save_repositoryurl", null);
-		String strMabisURL = oSP.getString("save_mabisurl", null);
-		String strLocalDevice = oSP.getString("save_localdevice", null);
+		String strDeviceAddress = oSP.getString("save_ip", null);
 		
 		
-		if(strRepositoryURL == null || strRepositoryURL.length() == 0)
+		if(strDeviceAddress == null || strDeviceAddress.length() == 0)
 		{
-			EditText etRepositoryURL = (EditText)this.findViewById(R.id.etRepositoryURL);
-			etRepositoryURL.setText(REPOSITORY_URL);
+			EditText etDeviceAddress = (EditText)this.findViewById(R.id.etDeviceAddress);
+			etDeviceAddress.setText(DEVICE_IP);
 		}
 		
-		if(strMabisURL == null || strMabisURL.length() == 0)
-		{
-			EditText etMabisURL = (EditText)this.findViewById(R.id.etMabisURL);
-			etMabisURL.setText(MABIS_URL);
-		}
-		
-		if(strLocalDevice == null || strLocalDevice.length() == 0)
-		{
-			CheckBox cbLocalDevice = (CheckBox)this.findViewById(R.id.cbLocalDevice);
-			cbLocalDevice.setChecked(false);
-		}
-		
-		if(strRepositoryURL != null && strRepositoryURL.length() != 0)
-		{
-			EditText etRepositoryURL = (EditText)this.findViewById(R.id.etRepositoryURL);
-			etRepositoryURL.setText(strRepositoryURL);
-		}
-		
-		if(strMabisURL != null && strMabisURL.length() != 0)
-		{
-			EditText etMabisURL = (EditText)this.findViewById(R.id.etMabisURL);
-			etMabisURL.setText(strMabisURL);
-		}
-		
-		if(strLocalDevice != null && strLocalDevice.length() != 0)
-		{
-			CheckBox cbLocalDevice = (CheckBox)this.findViewById(R.id.cbLocalDevice);
-			if (strLocalDevice.compareTo("1")==0) {
-				cbLocalDevice.setChecked(true);
-			}
-			else {
-				cbLocalDevice.setChecked(false);
-			}
-			
-		}
 	}
     
 	//save
     public void onSaveClick(View view) {
     	
     	//Checking RepositoryURL
-    	EditText etRepositoryURL = (EditText)this.findViewById(R.id.etRepositoryURL);
-		String strRepositoryURL = etRepositoryURL.getText().toString();
+    	EditText etDeviceAddress= (EditText)this.findViewById(R.id.etDeviceAddress);
+		String strDeviceAddress = etDeviceAddress.getText().toString();
 		
-		if(strRepositoryURL == null || strRepositoryURL.length() == 0)
+		if(strDeviceAddress == null || strDeviceAddress.length() == 0)
 		{
-			Toast.makeText(this, "Please enter a value for RepositoryURL ...", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Please enter a value for the device's address ...", Toast.LENGTH_SHORT).show();
 			return;
-		}
-		
-		//Checking MabisURL
-		EditText etMabisURL = (EditText)this.findViewById(R.id.etMabisURL);
-		String strMabisURL = etMabisURL.getText().toString();
-		
-		if(strMabisURL == null || strMabisURL.length() == 0)
-		{
-			Toast.makeText(this, "Please enter a value for MabisURL ...", Toast.LENGTH_SHORT).show();
-			return;
-		}
-		
-		//Saving RepositoryURL, MabisURL, LocalDevice
-		CheckBox cbLocalDevice = (CheckBox)this.findViewById(R.id.cbLocalDevice);
-		String strLocalDevice;
-		
-		if(cbLocalDevice.isChecked()==true){
-			strLocalDevice = "1";
-			//appCotext.setUsingLocalDevice(true);
-		}
-		else {
-			strLocalDevice = "0";
-			//appContext.setUsingLocalDevice(false);
 		}
 		
 		SharedPreferences oSP = null;
-		oSP = getApplicationContext().getSharedPreferences("img_mgr_setting_save", 0);
+		oSP = getApplicationContext().getSharedPreferences("settinga_save", 0);
 		
 		Editor editor = oSP.edit();
-		editor.putString("save_repositoryurl", strRepositoryURL);
-		editor.putString("save_mabisurl", strMabisURL);
-		editor.putString("save_localdevice", strLocalDevice);
+		editor.putString("save_ip", strDeviceAddress);
 		editor.commit();
 		
-		Toast.makeText(this, "Save Success!", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "Settings have been updated", Toast.LENGTH_SHORT).show();
 		finish();
 	}
 

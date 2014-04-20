@@ -1,14 +1,13 @@
 package com.gt.brewmasters.activities;
 
-import java.io.StringWriter;
 import java.util.Map;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -26,6 +25,21 @@ public class Brewmasters extends Application {
 	public final String REGISTER_URL = "http://brewmasters.herokuapp.com/api/v1/register";
 	public final String LOGIN_URL = "http://brewmasters.herokuapp.com/api/v1/login";
 	public final String LOGOUT_URL = "http://brewmasters.herokuapp.com/api/v1/logout";
+	public static final String DEVICE_ADDRESS = "http://192.168.0.100";
+	
+	public static String getDeviceAddress(Context oContext) {
+		SharedPreferences oSP = null;
+		oSP = oContext.getSharedPreferences("settings_save", 0);
+		String strDeviceAddress = oSP.getString("save_ip", null);
+		
+		String strMabisServerUrl = null;
+		if(strDeviceAddress == null || strDeviceAddress.length() == 0)
+			strMabisServerUrl = DEVICE_ADDRESS;
+		else
+			strMabisServerUrl = strDeviceAddress;
+
+		return strMabisServerUrl;
+	}
 	
     public void onCreate(){
         super.onCreate();

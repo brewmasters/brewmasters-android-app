@@ -4,8 +4,9 @@ import com.gt.brewmasters.R;
 import com.gt.brewmasters.activities.Brewmasters;
 import com.gt.brewmasters.activities.BrowseRecipesActivity;
 import com.gt.brewmasters.activities.CreateRecipeActivity;
+import com.gt.brewmasters.activities.FragmentPagerSupport;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,11 +24,34 @@ public class RecipeManager extends Fragment{
     
     Button newRecipe;
     Button browseRecipe;
+    
+    public static Brewmasters appContext;
+    static FragmentPagerSupport context;
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-			return inflater.inflate(R.layout.fragment_recipe_screen, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_recipe_screen, container, false);
+			
+			appContext = Brewmasters.getAppContext();
+	        
+	        rootView.findViewById(R.id.btn_new_recipe).setOnClickListener(new View.OnClickListener() {
+	            @Override
+	            public void onClick(View view) {
+					Intent recipeIntent = new Intent(RecipeManager.this.getActivity(), CreateRecipeActivity.class);
+					startActivity(recipeIntent);
+	            }
+	        });
+	        
+	        rootView.findViewById(R.id.btn_browse_recipes).setOnClickListener(new View.OnClickListener() {
+	            @Override
+	            public void onClick(View view) {
+					Intent recipeIntent = new Intent(RecipeManager.this.getActivity(), BrowseRecipesActivity.class);
+					startActivity(recipeIntent);
+	            }
+	        });
+			
+			return rootView;
     }
 	
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -43,25 +67,5 @@ public class RecipeManager extends Fragment{
 		super.onDestroy();
 		if(D) Log.d(TAG, "Fragment destroyed");
 	}
-
-//	@Override
-//	public void onClick(View v) {
-//		
-//		Intent myIntent;
-//		
-//		switch(v.getId()) {
-//			
-//		case R.id.btn_new_recipe:
-//			myIntent = new Intent(getActivity(), CreateRecipeActivity.class);
-//			startActivity(myIntent);
-//			break;
-//			
-//		case R.id.btn_browse_recipes:
-//			myIntent = new Intent(getActivity(), BrowseRecipesActivity.class);
-//			startActivity(myIntent);
-//			break;
-//			
-//		}
-//	}
 	
 }

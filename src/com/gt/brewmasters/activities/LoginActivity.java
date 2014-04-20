@@ -54,10 +54,12 @@ public class LoginActivity extends Activity {
 	private View mLoginStatusView;
 	
 	private Button btnLogin, btnRegister;
+	SharedPreferences prefs;
 	Intent myIntent;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	if(D) Log.v(TAG, "on create");
         super.onCreate(savedInstanceState);
         
         //get context for global application vars
@@ -81,7 +83,7 @@ public class LoginActivity extends Activity {
         mPasswordView = (EditText) findViewById(R.id.log_password);
         
         //If email and password have been stored, automatically login
-        SharedPreferences prefs =  getApplicationContext().getSharedPreferences("login_save", 0);;
+        prefs =  getApplicationContext().getSharedPreferences("login_save", 0);
 		if (prefs.contains("password") && prefs.contains("email")) {
 			mEmail    = prefs.getString("email", null);
 			mPassword = prefs.getString("password", null);
@@ -91,7 +93,6 @@ public class LoginActivity extends Activity {
 			
 			btnLogin.performClick();
 		}
-        
 
     }
     
@@ -103,11 +104,11 @@ public class LoginActivity extends Activity {
 	    	super.handleMessage(msg);
 	    	showProgress(false);
 	    	
-	    	if(D) Log.e(TAG, "=============== registerHandler == received");
+	    	if(D) Log.e(TAG, "=============== loginHandler == received");
 
 	    	if (msg.what == HttpTask.BAD_RESPONSE)
 	    	{
-				Toast.makeText(LoginActivity.this, "Account creation failed",
+				Toast.makeText(LoginActivity.this, "Failed to communicate with server",
     					Toast.LENGTH_LONG).show();
     			Log.v(TAG, "bad response");
 	    	}
@@ -142,9 +143,7 @@ public class LoginActivity extends Activity {
 	    			editor.putString("token", authToken);
 	    			editor.commit();
 	    			
-	    			
-		    		//Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
-	    			Intent myIntent = new Intent(LoginActivity.this, FragmentPagerSupport.class);
+	    			Intent myIntent = new Intent(LoginActivity.this, HomePager.class);
 					startActivity(myIntent);
 	    		}
 	    	}
@@ -209,9 +208,9 @@ public class LoginActivity extends Activity {
 			focusView.requestFocus();
 		} else {
 			
-			showProgress(true);
-
 			JSONObject loginJson = createLoginJSON(mEmail, mPassword);
+			
+			
 			userLogin(loginJson);
 			
 		}
@@ -241,8 +240,22 @@ public class LoginActivity extends Activity {
     public void userLogin(JSONObject json){
     	String loginUrl = appContext.LOGIN_URL;
     	
-    	HttpTask postTask = new HttpTask(loginUrl, json, this.loginHandler, HttpTask.POST);
-    	postTask.execute((Void) null);
+    	//If token is already stored, just reuse it
+    	if(prefs.getString("token", null) != null) {
+    		if(D) Log.v(TAG, "reusing token");
+			Intent myIntent = new Intent(LoginActivity.this, HomePager.class);
+			startActivity(myIntent);
+    	}
+    	//Otherwise login using server so we get one.
+    	else {
+    		if(D) Log.v(TAG, "showing progress");
+			showProgress(true);
+			
+    		if(D) Log.v(TAG, "token not found");
+    		HttpTask postTask = new HttpTask(loginUrl, json, this.loginHandler, HttpTask.POST);
+    		postTask.execute((Void) null);
+    	}
+    	
     }
 	
 	private void showToastOnUiThread(final String message, final int duration)

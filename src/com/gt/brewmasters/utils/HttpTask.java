@@ -81,7 +81,12 @@ public class HttpTask extends AsyncTask<Void, Void, String> {
 					httpResult = poster.post();
 					response = httpResult[0];
 					serverResponsePhrase = httpResult[1];
-					serverStatusCode = Integer.valueOf(httpResult[2]);
+					try {
+						serverStatusCode = Integer.valueOf(httpResult[2]);
+					}
+					catch(Exception e) {
+						serverStatusCode = -1;
+					}
 			}
 		}
 		if(this.type==HttpTask.GET) {
@@ -91,7 +96,12 @@ public class HttpTask extends AsyncTask<Void, Void, String> {
 			httpResult = getter.get();
 			response = httpResult[0];
 			serverResponsePhrase = httpResult[1];
-			serverStatusCode = Integer.valueOf(httpResult[2]);
+			try {
+				serverStatusCode = Integer.valueOf(httpResult[2]);
+			}
+			catch(Exception e) {
+				serverStatusCode = -1;
+			}
 		}
 		
 		

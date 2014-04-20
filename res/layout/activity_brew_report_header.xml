@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+  <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/brew_report"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical">
+	
+     <RelativeLayout
+		android:id="@+id/brew_status_form"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/Blue"
+		android:orientation="vertical">
+		
+        <TextView
+            android:id="@+id/brew_status_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Device Status: "
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+        <TextView
+            android:id="@+id/brew_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@id/brew_status_message"
+            android:text="Ready!"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+	 
+     </RelativeLayout>
+     
+     <RelativeLayout
+		android:id="@+id/brew_form"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+        
+        <Button
+		    android:id="@+id/btn_select_recipe"
+		    android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:layout_marginTop="30dp"
+	    	android:layout_centerHorizontal="true"
+	    	android:onClick="onSelectRecipeClick"
+	    	android:text="Select Recipe">
+		</Button>
+	 
+     </RelativeLayout>
+      
+  </LinearLayout>
