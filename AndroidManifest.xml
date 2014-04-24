@@ -9,6 +9,8 @@
         android:targetSdkVersion="18" />
     
     <uses-permission android:name="android.permission.INTERNET" />
+    
+    
 
     <application
         android:name="com.gt.brewmasters.activities.Brewmasters"
@@ -16,6 +18,8 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        
+        <receiver android:name=".AddIngredientAlarmReceiver" />
          
         <activity
             android:name="com.gt.brewmasters.activities.LoginActivity"
@@ -85,13 +89,18 @@
         
         <activity
             android:name="com.gt.brewmasters.activities.BeerReportActivity"
-            android:theme="@android:style/Theme.NoTitleBar"
             android:screenOrientation="portrait" 
             android:label="SettingsManager">
         </activity>
         
         <activity
             android:name="com.gt.brewmasters.activities.HomePager"
+            android:screenOrientation="portrait" 
+            android:label="Brewmasters">
+        </activity>
+        
+        <activity
+            android:name="com.gt.brewmasters.activities.MachineStatusActivity"
             android:screenOrientation="portrait" 
             android:label="Brewmasters">
         </activity>

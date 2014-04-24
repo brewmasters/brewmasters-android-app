@@ -31,6 +31,7 @@
 	            android:id="@+id/register_status_message"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
+	            android:textColor="@color/Black"
 	            android:layout_below="@+id/register_progress_bar"
 	            android:layout_centerHorizontal="true"
 	            android:fontFamily="sans-serif-light"
@@ -92,7 +93,7 @@
 		  <Button android:id="@+id/btn_register_accept" 
 		  		android:layout_width="fill_parent"
 		  		android:layout_height="wrap_content"
-		  		android:background="@drawable/custom_shape"
+		  		android:background="@drawable/action_btn"
 		  		android:layout_marginTop="20dip"
 		  		android:padding="20dp"
 		  		android:text="Register New Account"/>

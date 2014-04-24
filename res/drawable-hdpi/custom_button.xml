@@ -70,9 +70,10 @@
                 android:bottom="10dp" />
         </shape>
 -->
+<!-- 
     <item       
         android:background="@drawable/connect_button_pressed"/>  
-<!-- 
+
         <shape>
 
             <gradient

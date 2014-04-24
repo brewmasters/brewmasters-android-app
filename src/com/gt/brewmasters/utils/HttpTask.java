@@ -45,6 +45,9 @@ public class HttpTask extends AsyncTask<Void, Void, String> {
 	public static final int BAD_RESPONSE = -1;
 	public static final int RESPONSE     =  1;
 	
+	HttpGetter getter;
+	HttpPoster poster;
+	
 	//For use with jsons
 	public HttpTask (String url, JSONObject json, Handler handler, int type) {
 		this.url=url;
@@ -75,7 +78,7 @@ public class HttpTask extends AsyncTask<Void, Void, String> {
 
 		if(this.type==HttpTask.POST) {
 			if (strEntity!=null) {
-					HttpPoster poster = new HttpPoster(url, strEntity);
+					poster = new HttpPoster(url, strEntity);
 					if(D) Log.e(TAG, poster.toString());
 					if(D) Log.e(TAG, "*******POSTING JSON*******");
 					httpResult = poster.post();
@@ -90,7 +93,7 @@ public class HttpTask extends AsyncTask<Void, Void, String> {
 			}
 		}
 		if(this.type==HttpTask.GET) {
-			HttpGetter getter = new HttpGetter(url);
+			getter = new HttpGetter(url);
 			if(D) Log.e(TAG, getter.toString());
 			if(D) Log.e(TAG, "*******GETTING WEB REQUEST*******");
 			httpResult = getter.get();
@@ -127,9 +130,21 @@ public class HttpTask extends AsyncTask<Void, Void, String> {
 	        Bundle data = new Bundle();
 	        data.putString("server_response", this.serverResponsePhrase);
 	        data.putInt("server_status_code", this.serverStatusCode);
-	        data.putString("token", result);
+	        data.putString("ResponseObject", result);
 	        msg.setData(data);
 	        handler.sendMessage(msg);
 		}				
+	}
+	
+	@Override
+	protected void onCancelled() {
+		if(this.type == HttpTask.GET) {
+			if(D) Log.v(TAG, "canceled get");
+			getter.httpclient.getConnectionManager().shutdown();
+		}
+		if(this.type == HttpTask.POST) {
+			if(D) Log.v(TAG, "canceled post");
+			poster.httpclient.getConnectionManager().shutdown();
+		}
 	}
 }

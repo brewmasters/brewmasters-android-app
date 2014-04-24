@@ -39,11 +39,18 @@ public class SettingsActivity extends Activity {
 		
 		String strDeviceAddress = oSP.getString("save_ip", null);
 		
+		if(D) Log.v(TAG, "saved address: " + strDeviceAddress);
 		
 		if(strDeviceAddress == null || strDeviceAddress.length() == 0)
 		{
+			if(D) Log.v(TAG, "loading default address");
 			EditText etDeviceAddress = (EditText)this.findViewById(R.id.etDeviceAddress);
 			etDeviceAddress.setText(DEVICE_IP);
+		}
+		
+		else {
+			EditText etDeviceAddress = (EditText)this.findViewById(R.id.etDeviceAddress);
+			etDeviceAddress.setText(strDeviceAddress);
 		}
 		
 	}
@@ -62,7 +69,7 @@ public class SettingsActivity extends Activity {
 		}
 		
 		SharedPreferences oSP = null;
-		oSP = getApplicationContext().getSharedPreferences("settinga_save", 0);
+		oSP = getApplicationContext().getSharedPreferences("settings_save", 0);
 		
 		Editor editor = oSP.edit();
 		editor.putString("save_ip", strDeviceAddress);

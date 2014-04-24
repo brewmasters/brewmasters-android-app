@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/login_progress_bar"
             android:layout_centerHorizontal="true"
+            android:textColor="@color/Black"
             android:fontFamily="sans-serif-light"
             android:text="@string/login_progress_signing_in"
             android:textAppearance="?android:attr/textAppearanceMedium" />

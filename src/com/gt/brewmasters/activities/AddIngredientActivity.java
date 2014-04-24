@@ -60,7 +60,7 @@ public class AddIngredientActivity extends Activity {
     	unitAmount     = (EditText) findViewById(R.id.ingredient_amount_et);
     	unitSpinner    = (Spinner)  findViewById(R.id.unit_spinner);
     	
-    	typeName	   = (EditText) findViewById(R.id.ingredient_type_name_et);
+    	//typeName	   = (EditText) findViewById(R.id.ingredient_type_name_et);
     	typeSpinner	   = (Spinner)  findViewById(R.id.type_spinner);
     	
     	addTimeEt 	   = (EditText) findViewById(R.id.ingredient_add_time_et);

@@ -26,6 +26,7 @@ public class RecipeDataSource {
 
 	public RecipeDataSource(Context context) {
 		db = new BrewmasterDB(context);
+		db.onCreate(db.getWritableDatabase());
 	}
 
 	public void open() throws SQLException {
@@ -119,6 +120,7 @@ public class RecipeDataSource {
 		recipe.setMashTemp(Integer.valueOf(cursor.getString(5)));
 		recipe.setMashDuration(Integer.valueOf(cursor.getString(6)));
 		recipe.setBoilDuration(Integer.valueOf(cursor.getString(7)));
+		recipe.ingredients = new ArrayList<Ingredient>();
 		return recipe;
 	}
 

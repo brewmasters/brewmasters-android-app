@@ -2,6 +2,8 @@ package com.gt.brewmasters.activities;
 
 import java.util.Map;
 
+import org.acra.ACRA;
+import org.acra.annotation.ReportsCrashes;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -13,6 +15,14 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+
+@ReportsCrashes(
+        formKey = "",
+        formUri = "https://lucidic.cloudant.com/acra-brewmasters/_design/acra-storage/_update/report",
+        reportType = org.acra.sender.HttpSender.Type.JSON,
+        httpMethod = org.acra.sender.HttpSender.Method.PUT,
+        formUriBasicAuthLogin="ioniontereaceenteratuthe",
+        formUriBasicAuthPassword="eMYEVXqxFig1aedueAAtuuXm")
 public class Brewmasters extends Application {
 	
 	private static Context context;
@@ -44,6 +54,7 @@ public class Brewmasters extends Application {
     public void onCreate(){
         super.onCreate();
         Brewmasters.context = (Brewmasters) getApplicationContext();
+        ACRA.init(this);
     }
     
     public static Brewmasters getAppContext() {

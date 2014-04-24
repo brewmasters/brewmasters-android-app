@@ -2,6 +2,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
+	android:layout_marginTop="20dp"
+	android:paddingTop="10dp"
+	android:paddingBottom="10dp"
 	android:orientation="vertical">
 
       <Button
@@ -10,8 +13,11 @@
           android:layout_height="wrap_content"
           android:layout_alignParentBottom="true"
           android:layout_centerHorizontal="true"
-          android:layout_marginBottom="30dp"
+          android:background="@drawable/action_btn"
+          android:layout_marginLeft="15dp"
+          android:layout_marginRight="15dp"
           android:onClick="onBackClick"
-          android:text="Back" />
+          android:text="Back"
+          android:textSize="20dp" />
 
 </RelativeLayout>

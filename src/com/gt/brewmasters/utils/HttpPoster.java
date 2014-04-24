@@ -33,7 +33,7 @@ public class HttpPoster {
 	StringEntity strEntity;
 	
 	HttpPost httppost;
-	DefaultHttpClient httpclient;
+	public DefaultHttpClient httpclient;
 	BasicHttpContext httpContext;
 	
 	boolean usingNvp       = false;

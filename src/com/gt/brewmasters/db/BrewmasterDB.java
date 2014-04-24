@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import com.gt.brewmasters.structures.Recipe;
@@ -115,9 +117,10 @@ public class BrewmasterDB extends SQLiteOpenHelper
   @Override
   public void onCreate(SQLiteDatabase oDB)
   {
+	  Log.v("Brewmaster", "oncreate of db");
 	  String recipeCreate = "CREATE TABLE " + TABLE_RECIPE + "(" +
 	  			RECIPE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-				RECIPE_NAME + "UNIQUE TEXT," +
+				RECIPE_NAME + " TEXT NOT NULL UNIQUE," +
 				RECIPE_DESCRIPTION + " TEXT," +
 				RECIPE_BEER_TYPE + " TEXT," +
 				RECIPE_WATER_GRAIN_RATIO + " TEXT," +
@@ -147,6 +150,7 @@ public class BrewmasterDB extends SQLiteOpenHelper
 	  }
 	  catch(Exception e)
 	  {
+		  Log.v("Brewmaster", "error created db's");
 		  e.printStackTrace();
 	  }
   }

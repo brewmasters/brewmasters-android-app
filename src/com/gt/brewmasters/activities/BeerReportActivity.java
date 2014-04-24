@@ -10,11 +10,13 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -104,12 +106,23 @@ public class BeerReportActivity extends Activity {
     	//clear any views that might be on the ll already
     	llBrewDetails.removeAllViews();
     	
+		LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		llp.setMargins(50, 0, 0, 0); // llp.setMargins(left, top, right, bottom);
+
+    	
     	TextView tv = new TextView(this);
     	tv.setText(" ");
     	llBrewDetails.addView(tv);
     	
     	tv = new TextView(this);
-    	tv.setText("Recipe Name: " +name);
+    	tv.setTypeface(null, Typeface.BOLD);
+    	tv.setText("Recipe Name: ");
+	    tv.setLayoutParams(llp);
+    	llBrewDetails.addView(tv);
+    	
+    	tv = new TextView(this);
+    	tv.setText(name);
+	    tv.setLayoutParams(llp);
     	llBrewDetails.addView(tv);
     	
     	tv = new TextView(this);
@@ -118,12 +131,15 @@ public class BeerReportActivity extends Activity {
     	
     	tv = new TextView(this);
     	tv.setText("Ingredients");
+    	tv.setTypeface(null, Typeface.BOLD);
+	    tv.setLayoutParams(llp);
     	llBrewDetails.addView(tv);
     	
     	//Iterate through recipe ingredients and generate a textview for each 
     	for(int i=0; i<recipe.ingredients.size(); i++) {
     		Ingredient ingredient = recipe.ingredients.get(i);
         	tv = new TextView(this);
+    	    tv.setLayoutParams(llp);
         	String text = "Name: " + ingredient.getName()+" Type: "+ ingredient.getType()+" Amount: " +ingredient.getAmount() +" "+ingredient.getUnit();
         	Log.v(TAG, text);
         	tv.setText(text);
@@ -144,42 +160,64 @@ public class BeerReportActivity extends Activity {
   	    public void handleMessage(Message msg) 
   	    {
   	    	super.handleMessage(msg);
-  	    	//showProgress(false);
   	    	
   	    	if(D) Log.e(TAG, "=============== pagerHandler == received");
 
   	    	if (msg.what == HttpTask.BAD_RESPONSE)
   	    	{
-  				appContext.makeToast("Failed to communicate with device. Check power/connectivity");
+  				//appContext.makeToast("Failed to communicate with device. Check power/connectivity");
       			Log.v(TAG, "bad response");
+      			
+      			//add progressbarr
+      			sendRecipe();
   	    	}
   	    	
   	    	else if (msg.what == HttpTask.RESPONSE)
   	    	{
   	    		Bundle data = msg.getData();
   	    		Log.v(TAG, "data: " + data.toString());
+  	    		
+  	    		gotoMachineStatus();
 
   	    	}
   	    }
   	};
+  	
+    public void gotoMachineStatus() {
+		Intent statusIntent = new Intent(this, MachineStatusActivity.class);
+		startActivity(statusIntent);
+    }
     
     public void onBrewClick(View v) {
     	Log.v(TAG, "Brew");
     	if(brewRecipe != null) {
     		
-    		JSONObject brewRequest = this.createBrewRequestJSON(brewRecipe);
+    		//for testing
+    		//this.testStatus();
     		
-    		Log.v(TAG, brewRequest.toString());
     		
-    		String loginUrl = Brewmasters.getDeviceAddress(this)+"/recipe";
     		
-    		HttpTask postTask = new HttpTask(loginUrl, brewRequest, this.brewHandler, HttpTask.POST);
-    		postTask.execute((Void) null);
+    		//if(D) Log.v(TAG, brewRequest.toString());
+    		
+    		sendRecipe();
     	}
     	
     	else {
     		appContext.makeToast("Please select a recipe to brew before continuing");
     	}
+    }
+    
+    public void sendRecipe() {
+		JSONObject brewRequest = this.createBrewRequestJSON(brewRecipe);
+		String loginUrl = Brewmasters.getDeviceAddress(this)+"/recipe";
+		
+		HttpTask postTask = new HttpTask(loginUrl, brewRequest, this.brewHandler, HttpTask.POST);
+		postTask.execute((Void) null);
+    }
+    
+    public void testStatus() {
+		Intent myIntent = new Intent(this, MachineStatusActivity.class);
+		startActivity(myIntent);
     }
     
     public void onSelectRecipeClick(View v) {
@@ -217,49 +255,73 @@ public class BeerReportActivity extends Activity {
 		JSONArray array = new JSONArray();
 		Map recipeData=new LinkedHashMap();
 		
-		recipeData.put("id", String.valueOf(recipe.getId()));
-		recipeData.put("name", String.valueOf(recipe.getName()));
-		recipeData.put("description", recipe.getDescription());
-		recipeData.put("water_grain_ratio", String.valueOf(recipe.getWaterGrainRatio()));
-		recipeData.put("beer_type", recipe.getBeerType());
+		//recipeData.put("id", String.valueOf(recipe.getId()));
+		//recipeData.put("name", String.valueOf(recipe.getName()));
+		//recipeData.put("description", recipe.getDescription());
+		//recipeData.put("water_grain_ratio", String.valueOf(recipe.getWaterGrainRatio()));
+		//recipeData.put("beer_type", recipe.getBeerType());
 		recipeData.put("mash_temperature", String.valueOf(recipe.getMashTemp()));
 		recipeData.put("boil_duration", String.valueOf(recipe.getBoilDuration()));
 		recipeData.put("mash_duration", String.valueOf(recipe.getMashDuration()));
-		array.put(gson.toJson(recipeData));
+		
 		ArrayList<Ingredient> ingredients = recipe.getIngredients();
 		
-		
-		Map ingredientData=new LinkedHashMap();
-		
-		ArrayList<JSONObject> jsonList = new ArrayList<JSONObject>();
+		//filter list to get ride of anything thats not hops/others for ease in parsing on net side
+		ArrayList<Ingredient> filteredList = new ArrayList<Ingredient>();
 		for(int i=0; i<ingredients.size(); i++) {
-			
 			Ingredient ingredient = ingredients.get(i);
-			ingredientData.put("id", String.valueOf(ingredient.getId()));
-			ingredientData.put("recipe_id", String.valueOf(ingredient.getRecipeId()));
-			ingredientData.put("name", ingredient.getName());
-			ingredientData.put("type", ingredient.getType());
-			ingredientData.put("description", ingredient.getDescription());
-			ingredientData.put("amount", String.valueOf(ingredient.getAmount()));
-			ingredientData.put("unit", ingredient.getUnit());
-			ingredientData.put("add_time", String.valueOf(ingredient.getAddTime()));
-			String json = gson.toJson(ingredient);
-			
-			
-			Log.v(TAG, json);
-			array.put(json);
+			Log.v(TAG, "Ingredient type: " + ingredient.getType());
+			if(ingredient.getType().contentEquals("Hops") || ingredient.getType().contentEquals("Other")) {
+				Log.v(TAG, "Added to filter");
+				filteredList.add(ingredient);
+			}
 		}
+		
+		recipeData.put("ingredient_length", filteredList.size());
+		
+		
+		for(int i=0;i<filteredList.size();i++){
+			Ingredient ingredient = filteredList.get(i);
+			recipeData.put(ingredient.getName(),ingredient.getAddTime());
+		
+		}
+		
+		
+		//ArrayList<JSONObject> jsonList = new ArrayList<JSONObject>();
+//		for(int i=0; i<ingredients.size(); i++) {
+//			
+//			Map ingredientData=new LinkedHashMap();
+//			
+//			Ingredient ingredient = ingredients.get(i);
+//			ingredientData.put("id", String.valueOf(ingredient.getId()));
+//			ingredientData.put("recipe_id", String.valueOf(ingredient.getRecipeId()));
+//			ingredientData.put("name", ingredient.getName());
+//			ingredientData.put("type", ingredient.getType());
+//			ingredientData.put("description", ingredient.getDescription());
+//			ingredientData.put("amount", String.valueOf(ingredient.getAmount()));
+//			ingredientData.put("unit", ingredient.getUnit());
+//			ingredientData.put("add_time", String.valueOf(ingredient.getAddTime()));
+//			JSONObject json = new JSONObject(ingredientData);
+			//array.put(json);
+			
+			
+			//Log.v(TAG, json);
+			
+			//to send with no ingredient... for testing
+			//array.put(json);
+//		}
 		
 		//Gson gson = new Gson(); // Or use new GsonBuilder().create();
 		//recipe.setIngredients(null);
-		String json = gson.toJson(recipe);
-		Log.v(TAG, array.toString());
+		//String json = gson.toJson(recipe);
+//		Log.v(TAG, array.toString());
 		
 		Map data=new LinkedHashMap();
-		data.put("recipe", array);
+		data.put("recipe", recipeData);
 		
 		
 		JSONObject brewDataJson = appContext.createJSON(data);
+		Log.v(TAG, "Sent brew json: " + brewDataJson.toString());
 		
 		return brewDataJson;
 	}

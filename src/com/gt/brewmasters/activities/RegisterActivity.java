@@ -13,6 +13,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -45,6 +47,9 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	private EditText regPasswordConfEt;
 	
 	private HttpTask regTask = null;
+	
+	private String mEmail;
+	private String mPassword;
 	
 	private static Brewmasters appContext;
 	
@@ -94,7 +99,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	    	else if (msg.what == HttpTask.RESPONSE)
 	    	{	
 	    		Bundle data = msg.getData();
-	    		String authToken = (String) data.get("token");
+	    		String authToken = (String) data.get("ResponseObject");
 	    		Log.v(TAG, "token: " + authToken);
 	    		//TODO better way of checking this?
 	    		//added information to data bundle that will help check this
@@ -106,10 +111,25 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	    		else {
 	    			Toast.makeText(RegisterActivity.this, "Account has been created",
 	    					Toast.LENGTH_LONG).show();
-		    		//TODO what do i need to pass this?
-		    		//How do i use token? store in app context?
-		    		Intent myIntent = new Intent(RegisterActivity.this, MainActivity.class);
+
+	    			//store login info 
+	    			
+	    			SharedPreferences oSP = null;
+	    			oSP = getApplicationContext().getSharedPreferences("login_save", 0);
+	    			
+	    			//Add values to shared preferences for automatic login next time
+	    			Editor editor = oSP.edit();
+	    			editor.putString("email", mEmail);
+	    			editor.putString("password", mPassword);
+	    			editor.putString("token", authToken);
+	    			editor.commit();
+	    			
+	    			finish(); //return us to login screen
+	    			
+	    			//then go ahead and login
+	    			Intent myIntent = new Intent(RegisterActivity.this, HomePager.class);
 					startActivity(myIntent);
+					
 	    		}
 	    	}
 	    }
@@ -178,6 +198,8 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		else {
 			showProgress(true);
 			
+			mEmail=email;
+			mPassword=password;
     		JSONObject registerJson = createRegisterJSON(email, password, passwordConf);
 			createUser(registerJson);
 			

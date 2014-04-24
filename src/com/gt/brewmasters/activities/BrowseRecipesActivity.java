@@ -65,7 +65,14 @@ public class BrowseRecipesActivity extends Activity{
         
         initUi();
         
-		recipes = getRecipesFromDb();
+        try {
+    		recipes = getRecipesFromDb();        	
+        }
+        catch(Exception e) {
+        	appContext.makeToast("A database has not yet been created");
+        	finish();
+        	return;
+        }
 		
 		for(int i=0; i<recipes.size(); i++) {
 			if(D) Log.v(TAG, "Recipe name: " + recipes.get(i).getName());

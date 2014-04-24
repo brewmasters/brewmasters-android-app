@@ -5,21 +5,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"	        
     android:id="@+id/recipe_ingredient_list_linear_layout" 
     android:orientation="vertical" 
+    android:background="@drawable/home_backdrop"
     android:layout_width="fill_parent" 
-    android:layout_height="wrap_content">
+    android:layout_height="fill_parent">
     
     <RelativeLayout
 		android:id="@+id/brew_status_form"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:background="@color/Blue"
+		android:background="@color/SteelBlue"
 		android:orientation="vertical">
 		
         <TextView
             android:id="@+id/brew_status_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:textColor="@color/White"
+            android:textSize="25dp"
+            android:layout_marginLeft="15dp"
             android:text="Device Status: "
             android:textAppearance="?android:attr/textAppearanceMedium" />
         
@@ -28,6 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:textColor="@color/White"
+            android:textSize="25dp"
             android:layout_toRightOf="@id/brew_status_message"
             android:text="Ready!"
             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -38,7 +43,6 @@
 		android:id="@+id/brew_form"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:background="@color/LightGray"
 		android:orientation="vertical">
         
         <Button
@@ -47,6 +51,7 @@
 	    	android:layout_height="wrap_content"
 	    	android:layout_marginTop="30dp"
 	    	android:layout_centerHorizontal="true"
+	    	android:background="@drawable/action_btn"
 	    	android:onClick="onSelectRecipeClick"
 	    	android:text="Select Recipe">
 		</Button>
@@ -60,23 +65,23 @@
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:orientation="vertical">
-    <!--     
-                 <TextView
+        <TextView
+            android:layout_marginTop="20dp"
             android:id="@+id/brew_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:textStyle="bold"
             android:layout_toRightOf="@id/brew_status_message"
-            android:text="Ready!"
+            android:text="Recipe Details:"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-      -->    
          
      </LinearLayout>
 
 	<RelativeLayout
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:background="@color/LightGray"
+		android:paddingBottom="30dp"
 		android:orientation="vertical">
 	
 	      <Button
@@ -85,9 +90,9 @@
 	          android:layout_height="wrap_content"
 	          android:layout_alignParentBottom="true"
 	          android:layout_centerHorizontal="true"
-	          android:layout_marginBottom="30dp"
+	          android:background="@drawable/action_btn"
 	          android:onClick="onBrewClick"
-	          android:text="Brew!" />
+	          android:text="    Brew!    " />
 	
 	</RelativeLayout>
 </LinearLayout>

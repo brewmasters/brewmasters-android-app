@@ -28,7 +28,7 @@ public class HttpGetter {
 	StringEntity strEntity;
 	
 	HttpGet httpGet;
-	DefaultHttpClient httpclient;
+	public DefaultHttpClient httpclient;
 	BasicHttpContext httpContext;
 	
 	
@@ -37,7 +37,7 @@ public class HttpGetter {
 		this.url=url;
 		
 		httpGet = new HttpGet(url);
-		httpclient = new DefaultHttpClient();
+		this.httpclient = new DefaultHttpClient();
 		httpContext = new BasicHttpContext();
 	}
 	

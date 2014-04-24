@@ -290,7 +290,9 @@ public class CreateRecipeActivity extends Activity {
             	ingredientDatasource.open();
             	
             	//clear out the old list before we regenerate it
-            	recipe.ingredients.clear();
+            	if(recipe.ingredients != null) {
+            		recipe.ingredients.clear();
+            	}
             	
             	//For each ingredient in the ingredient list, create it with the given recipeId
             	for(int i=0; i<this.ingredientList.size(); i++) {

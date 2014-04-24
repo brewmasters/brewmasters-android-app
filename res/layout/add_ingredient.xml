@@ -2,12 +2,14 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
+    android:background="@drawable/home_backdrop"
 	android:layout_height="fill_parent">
 	
     <RelativeLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:padding="20dp"
+	    
 	    android:orientation="vertical">
 	    
 	    <TextView
@@ -16,6 +18,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_centerHorizontal="true"
 	        android:textStyle="bold"
+	        android:textColor="@color/Black"
 	        android:layout_marginBottom="15dp"
 	        android:text="Add a new Ingredient"/>
 	    
@@ -31,8 +34,9 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_marginRight="10dp"
+		        android:textColor="@color/Black"
 		        android:layout_marginBottom="10dp"
-		        android:text="Name:" />
+		        android:text="Name:         " />
 		    
 		    <EditText
 		        android:id="@+id/ingredient_name_et"
@@ -53,9 +57,10 @@
 		        android:id="@+id/ingredient_type_tv"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
+		        android:textColor="@color/Black"
 		        android:layout_marginRight="10dp"
 		        android:layout_marginBottom="10dp"
-		        android:text="Type:" />
+		        android:text="Type:           " />
 		     
 		     <Spinner
 		        android:id="@+id/type_spinner"
@@ -64,14 +69,16 @@
 		        android:layout_height="wrap_content"
 		        android:layout_marginRight="18dp"/>
 		    
+		     <!-- 
 		    <EditText
 		        android:id="@+id/ingredient_type_name_et"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:ems="10" />
+		      -->
 	    </LinearLayout>
 	    
-	    <LinearLayout
+	    <RelativeLayout
 	        android:id="@+id/ingredient_description_layout"
 	        android:layout_width="wrap_content"
 	        android:layout_marginTop="30dp"
@@ -84,15 +91,18 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_marginRight="10dp"
+		        android:textColor="@color/Black"
+		        android:layout_centerVertical="true"
 		        android:layout_marginBottom="10dp"
 		        android:text="Description:" />
 		    
 		    <EditText
 		        android:id="@+id/ingredient_description_et"
+		        android:layout_toRightOf="@id/ingredient_description_tv"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:ems="10" />
-	    </LinearLayout>
+	    </RelativeLayout>
 	    
 	    <LinearLayout
 	        android:id="@+id/ingredient_amount_layout"
@@ -106,9 +116,10 @@
 		        android:id="@+id/ingredient_amount_tv"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
+		        android:textColor="@color/Black"
 		        android:layout_marginRight="10dp"
 		        android:layout_marginBottom="10dp"
-		        android:text="Amount:" />
+		        android:text="Amount:      " />
 		     
 		    <EditText
 		        android:id="@+id/ingredient_amount_et"
@@ -137,9 +148,10 @@
 		        android:id="@+id/ingredient_add_time_tv"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
+		        android:textColor="@color/Black"
 		        android:layout_marginRight="10dp"
 		        android:layout_marginBottom="10dp"
-		        android:text="Add Time:" />
+		        android:text="Add Time:   " />
 		     
 		    <EditText
 		        android:id="@+id/ingredient_add_time_et"
@@ -154,7 +166,9 @@
 	        android:id="@+id/submitButton"
 	        android:layout_below="@id/ingredient_add_time_layout"
 	        android:layout_centerHorizontal="true"
+	        android:layout_marginTop="20dp"
 	        android:layout_width="fill_parent"
+	        android:background="@drawable/action_btn"
 	        android:layout_height="wrap_content"
 	        android:onClick="onAddIngredientClick"
 	        android:text="Add Ingredient"/>

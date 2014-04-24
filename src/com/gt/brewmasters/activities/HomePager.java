@@ -18,6 +18,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -226,8 +227,7 @@ public class HomePager extends FragmentActivity implements ActionBar.TabListener
             return rootView;
         }
     }
-
-
+    
 // Instances of this class are fragments representing a single
 // object in our collection.
 //public static class DemoObjectFragment extends Fragment {

@@ -116,7 +116,7 @@ public class LoginActivity extends Activity {
 	    	else if (msg.what == HttpTask.RESPONSE)
 	    	{
 	    		Bundle data = msg.getData();
-	    		String authToken = (String) data.get("token");
+	    		String authToken = (String) data.get("ResponseObject");
 	    		Log.v(TAG, "token: " + authToken);
 	    		//TODO better way of checking this?
 	    		if (authToken.contains("Error with your login or password")) {
@@ -252,6 +252,7 @@ public class LoginActivity extends Activity {
 			showProgress(true);
 			
     		if(D) Log.v(TAG, "token not found");
+    		if(D) Log.v(TAG, loginUrl);
     		HttpTask postTask = new HttpTask(loginUrl, json, this.loginHandler, HttpTask.POST);
     		postTask.execute((Void) null);
     	}

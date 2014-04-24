@@ -2,6 +2,8 @@
 <RelativeLayout
     	xmlns:android="http://schemas.android.com/apk/res/android"
     	android:layout_width="fill_parent"
+    	android:paddingBottom="20dp"
+    	android:background="@drawable/home_backdrop"
 	    android:layout_height="wrap_content">
 	    
 	    <TextView
@@ -10,7 +12,9 @@
 	        android:layout_height="wrap_content"
 	        android:layout_below="@id/recipe_ingredient_list_linear_layout"
 	        android:layout_centerHorizontal="true"
+	        android:textColor="@color/Black"
 	        android:textStyle="bold"
+	        android:layout_marginTop="10dp"
 	        android:text="Procedure Specifications"/>
 	    
 	    <LinearLayout
@@ -25,6 +29,7 @@
 		        android:id="@+id/grain_to_water_tv"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
+		        android:textColor="@color/Black"
 		        android:layout_margin="5dp"
 		        android:text="Water/Grain Ratio:" />
 		    
@@ -40,6 +45,7 @@
 		    <TextView
 		        android:id="@+id/grain_to_water_unit_tv"
 		        android:layout_width="wrap_content"
+		        android:textColor="@color/Black"
 		        android:layout_height="wrap_content"
 		        android:layout_margin="5dp"
 		        android:text="Qts/Lb" />
@@ -57,8 +63,9 @@
 		        android:id="@+id/mash_temp_tv"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
+		        android:textColor="@color/Black"
 		        android:layout_margin="5dp"
-		        android:text="Mash Temp:" />
+		        android:text="Mash Temp:           " />
 		    <!-- 150-165 -->
 		    
 		    <EditText
@@ -74,6 +81,7 @@
 		        android:id="@+id/mash_temp_unit_tv"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
+		        android:textColor="@color/Black"
 		        android:layout_margin="5dp"
 		        android:text="Fahreinheit" />
 	    </LinearLayout>
@@ -90,8 +98,9 @@
 		        android:id="@+id/mash_duration_tv"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
+		        android:textColor="@color/Black"
 		        android:layout_margin="5dp"
-		        android:text="Mash Duration:"/>
+		        android:text="Mash Duration:      "/>
 	    	
 	    	<EditText
 		        android:id="@+id/mash_duration_et"
@@ -106,6 +115,7 @@
 	    	<TextView
 		        android:id="@+id/mash_duration_unit_tv"
 		        android:layout_width="wrap_content"
+		        android:textColor="@color/Black"
 		        android:layout_height="wrap_content"
 		        android:layout_margin="5dp"
 		        android:text="Minutes" />
@@ -131,8 +141,9 @@
 		        android:id="@+id/boil_time_tv"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
+		        android:textColor="@color/Black"
 		        android:layout_margin="5dp"
-		        android:text="Boil Duration:"/>	   	
+		        android:text="Boil Duration:         "/>	   	
 		   	
 	    	<EditText
 		        android:id="@+id/boil_duration_et"
@@ -148,6 +159,7 @@
 		        android:id="@+id/mash_temp_unit_tv"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
+		        android:textColor="@color/Black"
 		        android:layout_margin="5dp"
 		        android:text="Minutes" />
 	    	
@@ -165,7 +177,10 @@
 	        android:layout_below="@id/boil_duration_layout"
 	        android:layout_width="fill_parent"
 	        android:layout_centerHorizontal="true"
+	        android:layout_marginLeft="30dp"
+	        android:layout_marginRight="30dp"
 	        android:layout_height="wrap_content"
+	        android:background="@drawable/action_btn"
 	        android:onClick="onRecipeCreate"
 	        android:text="Create"/>
 

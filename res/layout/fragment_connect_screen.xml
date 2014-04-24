@@ -25,7 +25,7 @@
 	        android:shadowDx="0"
 	        android:shadowDy="0"
 	        android:shadowRadius="5"
-	        android:text="Connect to Device"
+	        android:text="Connect to Brewery"
 	        android:textColor="#FFFFFF"
 	        android:textSize="30sp" />
 		
@@ -33,6 +33,7 @@
 	    <RelativeLayout
 	        android:id="@+id/connect_status"
 	        android:layout_width="fill_parent"
+	        android:layout_marginTop="15dp"
 	        android:layout_height="fill_parent"
 	        android:orientation="vertical"
 	        android:visibility="gone" >
@@ -40,10 +41,11 @@
 	        <ProgressBar
 	            android:id="@+id/connect_progress_bar"
 	            style="?android:attr/progressBarStyleLarge"
+	            android:layout_marginLeft="20dp"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_centerHorizontal="true"
-	            android:layout_centerVertical="true" />
+	            android:layout_marginTop="15dp"
+	            android:layout_centerHorizontal="true"/>
 	
 	        <TextView
 	            android:id="@+id/connect_status_message"
@@ -54,6 +56,24 @@
 	            android:fontFamily="sans-serif-light"
 	            android:text="Connecting..."
 	            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	        <Button
+		        android:id="@+id/btn_cancel_connect"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:background="@drawable/action_connect_btn"
+		        android:layout_below="@id/connect_status_message"
+		        android:layout_marginTop="15dp"
+		        android:shadowColor="#A8A8A8"
+		        android:layout_centerHorizontal="true"
+		        android:layout_marginBottom="20dp"
+		        android:shadowDx="0"
+		        android:shadowDy="0"
+		        android:shadowRadius="5"
+		        android:text="Cancel"
+		        android:textColor="#FFFFFF"
+		        android:textSize="15sp" />
+	        	        
 	    </RelativeLayout>
 	    
 	</LinearLayout>

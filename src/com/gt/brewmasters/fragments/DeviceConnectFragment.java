@@ -3,10 +3,12 @@ package com.gt.brewmasters.fragments;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
 import com.gt.brewmasters.R;
 import com.gt.brewmasters.activities.BeerReportActivity;
 import com.gt.brewmasters.activities.Brewmasters;
 import com.gt.brewmasters.activities.FragmentPagerSupport;
+import com.gt.brewmasters.activities.MachineStatusActivity;
 import com.gt.brewmasters.utils.HttpTask;
 
 import android.annotation.TargetApi;
@@ -17,8 +19,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 
 /**
@@ -36,7 +40,10 @@ public class DeviceConnectFragment extends Fragment {
 	
     public static Brewmasters appContext;
     static FragmentPagerSupport context;
-
+    
+    private Boolean show;
+    HttpTask getTask;
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -47,8 +54,21 @@ public class DeviceConnectFragment extends Fragment {
         rootView.findViewById(R.id.btn_connect).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            	DeviceConnectFragment.this.showProgress(true);
+            	Log.v(TAG, "on connect click");
+            	//DeviceConnectFragment.this.gotoBeerReport();
+            	show=true;
+            	DeviceConnectFragment.this.showProgress(show);
             	DeviceConnectFragment.this.connect();
+            }
+        });
+        
+        rootView.findViewById(R.id.btn_cancel_connect).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            	Log.v(TAG, "on cancel click");
+            	show=false;
+            	DeviceConnectFragment.this.showProgress(show);
+            	getTask.cancel(true);
             }
         });
         
@@ -57,49 +77,54 @@ public class DeviceConnectFragment extends Fragment {
         return rootView;
     }
     
-    //Connect button on device screen. Attempts to get machine state
-    public void onConnectClick(View v) {
-    	this.showProgress(true);
-    	this.connect();
-    	//this.gotoBeerReport();
-    }
-    
     //Handler that receives messages from post execute to tell us when http post has been completed
   	Handler pagerHandler = new Handler() {
   	    @Override
   	    public void handleMessage(Message msg) 
   	    {
   	    	super.handleMessage(msg);
-  	    	showProgress(false);
   	    	
   	    	if(D) Log.e(TAG, "=============== pagerHandler == received");
 
   	    	if (msg.what == HttpTask.BAD_RESPONSE)
   	    	{
-  				appContext.makeToast("Failed to communicate with device. Check power/connectivity");
+  				//appContext.makeToast("Failed to communicate with device. Check power/connectivity");
       			Log.v(TAG, "bad response");
+      			connect();
   	    	}
   	    	
   	    	else if (msg.what == HttpTask.RESPONSE)
   	    	{
+  	    		show=false;
+  	    		showProgress(show);
+  	    		
   	    		Bundle data = msg.getData();
   	    		Log.v(TAG, "data: " + data.toString());
   	    		
   	    		JSONObject response;
 				try {
-					response = new JSONObject(data.getString("token"));
+					Log.v(TAG, data.getString("ResponseObject"));
 					
-	  	    		Log.v(TAG, "from json: " + response.getString("Status"));
-	  	    		Boolean serverStatus = Boolean.valueOf(response.getString("Status"));
+					response = new JSONObject(data.getString("ResponseObject"));
+					Log.v(TAG, response.toString());
+					//token get response object then get status
+					
+					response = response.getJSONObject("ResponseObject");
+					//String responseObject = response.getString("status");
+	  	    		Log.v(TAG, "from json: " + response.getString("status"));
+	  	    		Log.v(TAG, "resp" + response.toString());
+	  	    		Boolean serverStatus = response.getBoolean("status");
 	  	    		if(serverStatus==false) {
 	  	    			gotoBeerReport();
 	  	    		}
 	  	    		else {
-	  	    			
+
+	  	    			gotoMachineStatus(response);
 	  	    		}
 	  	    		
 				}
   	    		catch (JSONException e) {
+  	    			Log.v(TAG, "error parsing json");
 					e.printStackTrace();
 				}
   	    		
@@ -108,16 +133,25 @@ public class DeviceConnectFragment extends Fragment {
   	};
   	
     public void connect() {
+    	Log.v(TAG, "connecting");
     	String deviceUrl = Brewmasters.getDeviceAddress(this.getActivity())+"/status";
-    	
-    	HttpTask getTask = new HttpTask(deviceUrl, this.pagerHandler, HttpTask.GET);
+    	getTask = new HttpTask(deviceUrl, this.pagerHandler, HttpTask.GET);
     	getTask.execute((Void) null);
+    }
+    
+    public void gotoMachineStatus(JSONObject response) {
+		Bundle jsonBundle = new Bundle();
+		jsonBundle.putString("status", response.toString());
+		Intent statusIntent = new Intent(this.getActivity(), MachineStatusActivity.class);
+		statusIntent.putExtras(jsonBundle);
+		startActivity(statusIntent);
     }
     
     public void gotoBeerReport() {
 		Intent myIntent = new Intent(this.getActivity(), BeerReportActivity.class);
 		startActivity(myIntent);
     }
+    
     
 	/**
 	 * Shows the progress UI and hides the login form.
@@ -149,4 +183,5 @@ public class DeviceConnectFragment extends Fragment {
 			}
 		}
 	}
+	
 }
