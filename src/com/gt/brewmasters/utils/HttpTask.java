@@ -140,7 +140,13 @@ public class HttpTask extends AsyncTask<Void, Void, String> {
 	protected void onCancelled() {
 		if(this.type == HttpTask.GET) {
 			if(D) Log.v(TAG, "canceled get");
-			getter.httpclient.getConnectionManager().shutdown();
+			try {
+				getter.httpclient.getConnectionManager().shutdown();	
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
 		if(this.type == HttpTask.POST) {
 			if(D) Log.v(TAG, "canceled post");

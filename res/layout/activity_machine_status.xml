@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"	        
+    android:id="@+id/recipe_ingredient_list_linear_layout"
+    android:background="@drawable/home_backdrop" 
+    android:orientation="vertical" 
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent">
+    
+    <!-- Confirmation progress -->
+    <RelativeLayout
+        android:id="@+id/confirmation_status"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ProgressBar
+            android:id="@+id/confirmation_progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:id="@+id/confirmation_status_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/confirmation_progress_bar"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/Black"
+            android:fontFamily="sans-serif-light"
+            android:text="Pumping, please wait..."
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
+    
+    <LinearLayout 
+        android:id="@id/brew_status_form"
+        android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:visibility="visible">
+    
+	    <RelativeLayout
+			android:id="@+id/brew_status"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="30dp"
+			android:background="@color/SteelBlue"
+			android:orientation="vertical">
+	        
+	        <ProgressBar
+	            android:id="@+id/status_progress"
+	            style="?android:attr/progressBarStyleSmall"
+	            android:layout_alignParentRight="true"
+	            android:layout_marginRight="20dp"
+	            android:layout_width="wrap_content"
+	            android:layout_centerVertical="true"
+	            android:layout_height="wrap_content"
+	            android:visibility="gone"/>
+
+	        <TextView
+	            android:id="@+id/brew_status_message"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentTop="true"
+	            android:textColor="@color/White"
+	            android:textSize="25dp"
+	            android:layout_marginLeft="15dp"
+	            android:text="Device Status: "
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	        <TextView
+	            android:id="@+id/brew_status"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerVertical="true"
+	            android:textSize="25dp"
+	            android:textColor="@color/White"
+	            android:layout_toRightOf="@+id/brew_status_message"
+	            android:text="Brewing..."
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	        
+	     </RelativeLayout>
+	     
+	        <RelativeLayout
+			android:id="@+id/step_status"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10dp"
+			android:orientation="vertical">
+			
+	        <TextView
+	            android:id="@+id/current_step_tv"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="25dp"
+	            android:textStyle="bold"
+	            android:text="Step: "
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	        
+	        <TextView
+	            android:id="@+id/current_step"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerHorizontal="true"
+	            android:layout_toRightOf="@id/current_step_tv"
+	            android:text="1/5"
+	            android:layout_marginRight="5dp"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	        
+	         <TextView
+	            android:id="@+id/current_step_name"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerHorizontal="true"
+	            android:layout_toRightOf="@id/current_step"
+	            android:text="Premash"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+		 
+	     </RelativeLayout>
+	     
+	    <RelativeLayout
+			android:id="@+id/time_status"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10dp"
+			android:orientation="vertical">
+			
+	        <TextView
+	            android:id="@+id/time_left_tv"
+	            android:layout_width="wrap_content"
+	            android:layout_marginLeft="25dp"
+	            android:layout_height="wrap_content"
+	            android:textStyle="bold"
+	            android:text="Time left: "
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	        
+	        <TextView
+	            android:id="@+id/time_left"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerHorizontal="true"
+	            android:layout_toRightOf="@id/time_left_tv"
+	            android:text="10 min"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+		 
+	     </RelativeLayout>
+	     
+	     <RelativeLayout
+			android:id="@+id/mash_temp_status"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10dp"
+			android:orientation="vertical">
+			
+	        <TextView
+	            android:id="@+id/current_mash_temp_tv"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="25dp"
+	            android:textStyle="bold"
+	            android:text="Mash Tune Temp: "
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	        
+	        <TextView
+	            android:id="@+id/current_mash_temp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerHorizontal="true"
+	            android:layout_toRightOf="@id/current_mash_temp_tv"
+	            android:text="100"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+		 
+	     </RelativeLayout>
+	     
+	     <RelativeLayout
+			android:id="@+id/boil_temp_status"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10dp"
+			android:orientation="vertical">
+			
+	        <TextView
+	            android:id="@+id/current_boil_temp_tv"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="25dp"
+	            android:textStyle="bold"
+	            android:text="Boil  Kettle  Temp:  "
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	        
+	        <TextView
+	            android:id="@+id/current_boil_temp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerHorizontal="true"
+	            android:layout_toRightOf="@id/current_boil_temp_tv"
+	            android:text="100"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+		 
+	     </RelativeLayout>
+	     
+	     <RelativeLayout
+			android:id="@+id/message_status"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10dp"
+			android:orientation="vertical">
+			
+	        <TextView
+	            android:id="@+id/current_message_tv"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="25dp"
+	            android:textStyle="bold"
+	            android:text="Status: "
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	        
+	        <TextView
+	            android:id="@+id/current_message"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerHorizontal="true"
+	            android:layout_toRightOf="@id/current_message_tv"
+	            android:text=" "
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+		 
+	     </RelativeLayout>
+	     
+     </LinearLayout>
+
+    <Button
+        android:id="@+id/reset_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_gravity="center"
+        android:background="@drawable/action_btn"
+        android:onClick="onResetClick"
+        android:text="Reset" />
+
+</LinearLayout>
+
