@@ -1,6 +1,7 @@
 package com.gt.brewmasters.activities;
 
 import com.gt.brewmasters.R;
+import com.gt.brewmasters.fragments.CommunityFragment;
 import com.gt.brewmasters.fragments.DeviceConnectFragment;
 import com.gt.brewmasters.fragments.RecipeManager;
 
@@ -28,6 +29,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class HomePager extends FragmentActivity implements ActionBar.TabListener{
+	
+	// Debugging
+    private static final String TAG = "Brewmaster";
+    private static final boolean D  = true;
 	
     static final int CONNECT_SCREEN   = 0;
     static final int RECIPE_SCREEN    = 1;
@@ -147,13 +152,16 @@ public class HomePager extends FragmentActivity implements ActionBar.TabListener
                 case HomePager.CONNECT_SCREEN:
                     // The first section of the app is the most interesting -- it offers
                     // a launchpad into the other demonstrations in this example application.
+                	if(D) Log.v(TAG, "device frag");
                     return new DeviceConnectFragment();
                     
                 case HomePager.RECIPE_SCREEN:
+                	if(D) Log.v(TAG, "recipe frag");
                 	return new RecipeManager();
                 	
-                //case HomePager.COMMUNITY_SCREEN:
-                //	return null;
+                case HomePager.COMMUNITY_SCREEN:
+                	if(D) Log.v(TAG, "community frag");
+                	return new CommunityFragment();
 
                 default:
                     // The other sections of the app are dummy placeholders.

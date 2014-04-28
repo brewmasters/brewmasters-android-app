@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 public class RecipeManager extends Fragment{
 	
@@ -34,7 +35,7 @@ public class RecipeManager extends Fragment{
 		View rootView = inflater.inflate(R.layout.fragment_recipe_screen, container, false);
 			
 			appContext = Brewmasters.getAppContext();
-	        
+			
 	        rootView.findViewById(R.id.btn_new_recipe).setOnClickListener(new View.OnClickListener() {
 	            @Override
 	            public void onClick(View view) {

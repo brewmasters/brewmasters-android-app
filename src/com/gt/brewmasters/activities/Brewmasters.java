@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 
@@ -32,6 +33,7 @@ public class Brewmasters extends Application {
 	public LayoutInflater inflater;
 	public ViewGroup viewGroup;
 	
+	public final String WEBSITE_URL = "http://brewmasters.herokuapp.com/";
 	public final String REGISTER_URL = "http://brewmasters.herokuapp.com/api/v1/register";
 	public final String LOGIN_URL = "http://brewmasters.herokuapp.com/api/v1/login";
 	public final String LOGOUT_URL = "http://brewmasters.herokuapp.com/api/v1/logout";
@@ -104,4 +106,5 @@ public class Brewmasters extends Application {
 	public void makeToast(String toastText) {
 		Toast.makeText(this, toastText, Toast.LENGTH_SHORT).show();
 	}
+	
 }

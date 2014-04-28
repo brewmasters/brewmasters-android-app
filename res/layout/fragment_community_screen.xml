@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:orientation="vertical">
+      
+    <!-- Web progress -->
+    <RelativeLayout
+        android:id="@+id/webview_status"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/home_backdrop"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ProgressBar
+            android:id="@+id/webview_progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:id="@+id/webview_status_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/webview_progress_bar"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/Black"
+            android:fontFamily="sans-serif-light"
+            android:text="Loading webpage..."
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
+	
+	<WebView
+	    android:id="@+id/community_webview"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:visibility="visible"
+	/>
+    
+</LinearLayout>
+
+   	
